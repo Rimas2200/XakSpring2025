@@ -26,13 +26,23 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    'jazzmin',
     'django.contrib.admin',
+
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'userProfile',
+
+    'culture',
+    'operation',
+    'departaments',
+
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -99,10 +109,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+JAZZMIN_SETTINGS = {
+    "site_brand": "Панель управления",
+    "copyright": "АгроГномы",
+    "site_title": "Панель управления",
+    "site_header": "Панель управления",
+    "welcome_sign": "Добро пожаловать в панель управления",
+    #"hide_apps": ["authtoken"],
+}
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -120,3 +140,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
