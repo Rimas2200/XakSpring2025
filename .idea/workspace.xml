@@ -5,18 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b074eb98-0a80-4e96-b3bd-32c71623c029" name="Changes" comment="git">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/XakSpring2025.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/XakSpring2025.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/bots/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/bots/fucnctions/handlers.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/bots/fucnctions/webapp/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/bots/fucnctions/webapp/api_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/bots/fucnctions/webapp/main_handler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/bots/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/userProfile/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/xakatonDRF/agronomist/serializer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/userProfile/admin.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/userProfile/apps.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/userProfile/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/userProfile/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/userProfile/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/userProfile/views.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/server/xakatonDRF/xakatonDRF/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/xakatonDRF/xakatonDRF/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/xakatonDRF/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/xakatonDRF/xakatonDRF/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +52,10 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Python.handlers.executor": "Run",
+    "Python.loader.executor": "Run",
+    "Python.main.executor": "Run",
+    "Python.mainbutton.executor": "Run",
     "Python.pars_scripts.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "HL__GR",
@@ -62,6 +63,11 @@
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\PRODJECTS_TO_GIT\XakSpring2025\server" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
