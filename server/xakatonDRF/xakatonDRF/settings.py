@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'culture',
     'operation',
     'departaments',
+    'connectionsbottg',
 
     'rest_framework',
 
