@@ -1,8 +1,10 @@
 
-
+from .jazmin import JAZZMIN_SETTINGS, JAZZMIN_UI_TWEAKS
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+
+
 
 load_dotenv()
 
@@ -86,6 +88,8 @@ DATABASES = {
         'PASSWORD': os.getenv("DATABASE_PASSWORD"),
         'HOST': os.getenv("DATABASE_HOST"),
         'PORT': os.getenv("DATABASE_PORT"),
+
+
     }
 }
 
@@ -109,14 +113,9 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-JAZZMIN_SETTINGS = {
-    "site_brand": "Панель управления",
-    "copyright": "АгроГномы",
-    "site_title": "Панель управления",
-    "site_header": "Панель управления",
-    "welcome_sign": "Добро пожаловать в панель управления",
-    #"hide_apps": ["authtoken"],
-}
+JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
+JAZZMIN_UI_TWEAKS = JAZZMIN_UI_TWEAKS
+
 
 
 # Internationalization
