@@ -52,7 +52,7 @@ coverage.xml
 cover/
 .idea
 .vscode
-
+media
 # Translations
 *.mo
 *.pot
