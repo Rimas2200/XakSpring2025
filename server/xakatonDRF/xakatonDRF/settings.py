@@ -1,8 +1,10 @@
 
-
+from .jazmin import JAZZMIN_SETTINGS, JAZZMIN_UI_TWEAKS
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+
+
 
 load_dotenv()
 
@@ -26,13 +28,24 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    'jazzmin',
     'django.contrib.admin',
+
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'userProfile',
+
+    'culture',
+    'operation',
+    'departaments',
+    'connectionsbottg',
+
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -76,6 +89,8 @@ DATABASES = {
         'PASSWORD': os.getenv("DATABASE_PASSWORD"),
         'HOST': os.getenv("DATABASE_HOST"),
         'PORT': os.getenv("DATABASE_PORT"),
+
+
     }
 }
 
@@ -99,10 +114,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
+JAZZMIN_UI_TWEAKS = JAZZMIN_UI_TWEAKS
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -120,3 +140,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
