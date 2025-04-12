@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b074eb98-0a80-4e96-b3bd-32c71623c029" name="Changes" comment="git">
-      <change afterPath="$PROJECT_DIR$/server/bots/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/bots/fucnctions/handlers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/bots/fucnctions/webapp/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/bots/fucnctions/webapp/api_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/bots/fucnctions/webapp/main_handler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/bots/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/xakatonDRF/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/xakatonDRF/xakatonDRF/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/xakatonDRF/xakatonDRF/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/xakatonDRF/xakatonDRF/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,19 +42,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.handlers.executor": "Run",
-    "Python.loader.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.mainbutton.executor": "Run",
-    "Python.pars_scripts.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "HL__GR",
-    "last_opened_file_path": "E:/PRODJECT/AKUTOLOX",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.handlers.executor&quot;: &quot;Run&quot;,
+    &quot;Python.loader.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mainbutton.executor&quot;: &quot;Run&quot;,
+    &quot;Python.pars_scripts.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;HL__GR&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/PRODJECT/AKUTOLOX&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\PRODJECTS_TO_GIT\XakSpring2025\server" />
