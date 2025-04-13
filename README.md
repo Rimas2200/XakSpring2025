@@ -12,7 +12,7 @@
     DATABASE_PASSWORD="YOUR_DATABASE_PASSWORD"
     DATABASE_HOST=localhost # пока что не трогать для докера не нужно будет это менять 
     DATABASE_PORT=5432
-# Модель
+# [Модель](https://huggingface.co/RimasZzz/agriculture_text_transform_model)
 ## [Архитектура](model/agriculture_text_transform_model/config.json)
 <p align="center">
   <img src="model/assets/model_architecturejpg.jpg">
