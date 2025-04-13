@@ -45,7 +45,7 @@ async def save_photo(message: types.Message):
         os.makedirs(DOWNLOADS_DIR)
 
     photo = message.photo[-1]
-    await message.answer(f"{message.caption}")
+    message_caption = message.caption if message.caption else "No caption"
     
 
     file_id = photo.file_id
@@ -53,16 +53,18 @@ async def save_photo(message: types.Message):
     file_path = file.file_path
 
     download_path = os.path.join(DOWNLOADS_DIR, f"{file_id}.jpg")
+    
     message_obj = {
         "sender": message.from_user.username,
-        "message": message.caption,
+        "message": message_caption,
         "userid": message.from_user.id,
         "chat_id": message.chat.id
         }
     await bot.download_file(file_path, download_path)
-    await asyncio.sleep(8)
+    await asyncio.sleep(16)
     await save_photo_post(date=message_obj, files_path=download_path)
-
+    
+    
 
 
 

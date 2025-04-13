@@ -1,4 +1,3 @@
-
 JAZZMIN_SETTINGS = {
     # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Панель управления",
@@ -28,7 +27,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Добро пожаловать в панель управления",
 
     # Copyright on the footer
-    "copyright": "АгроГномы",
+    "copyright": "Агрономы",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string 
@@ -44,16 +43,25 @@ JAZZMIN_SETTINGS = {
     # Links to put along the top menu
     "topmenu_links": [
 
-        # Url that gets reversed (Permissions can be added)
         {"name": "Главная Страница",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"model": "auth.user", "name": "Пользователи", "permissions": ["auth.view_user"]},
 
-        # external url that opens in a new window (Permissions can be added)
-
-        # model admin to link to (Permissions checked against model)
-         {"model": "auth.user", "name": "Пользователи", "permissions": ["auth.view_user"]},
-
-        # App with dropdown menu to all its models pages (Permissions checked against models)
+        {
+            "name": "Моя Кастомная Менюшка",
+            "url": "/admin/custom-menu/",  # URL для новой страницы
+            "children": [  # Подменю
+                {
+                    "name": "Подменю 1",
+                    "url": "/admin/submenu-1/",
+                },
+                {
+                    "name": "Подменю 2",
+                    "url": "/admin/submenu-2/",
+                },
+            ],
+        },
     ],
+    
 
     #############
     # User Menu #

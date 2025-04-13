@@ -1,0 +1,9 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Моя Кастомная Менюшка</h1>
+<p>Это главная страница кастомной менюшки.</p>
+<ul>
+    <li><a href="{% url 'submenu_1' %}">Подменю 1</a></li>
+    <li><a href="{% url 'submenu_2' %}">Подменю 2</a></li>
+</ul>
+{% endblock %}

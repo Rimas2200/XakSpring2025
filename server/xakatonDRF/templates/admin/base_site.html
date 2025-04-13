@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | Моя Кастомная Админка{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">Моя Кастомная Админка</a></h1>
+{% endblock %}
+
+{% block nav-global %}
+    {{ block.super }}
+    <div class="custom-menu">
+        <a href="/custom/admin/custom-menu/">Моя Кастомная Менюшка</a>
+    </div>
+{% endblock %}
