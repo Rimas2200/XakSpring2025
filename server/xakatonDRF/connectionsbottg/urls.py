@@ -6,6 +6,7 @@ router = routers.DefaultRouter()
 
 router.register(r'save_messages', SaveMessagesListView, basename='save_messages')
 router.register(r'save_photo', PhotoMessagesViewSet, basename='save_photo')
+router.register(r'save_messages_whatsapp', SaveMessagesListView, basename='save_messages_whatsapp')
 
 urlpatterns = [
     path('', include(router.urls)),
