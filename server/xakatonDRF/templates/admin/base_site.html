@@ -1,4 +1,6 @@
+<!-- В папке templates/admin/base_site.html -->
 {% extends "admin/base.html" %}
+{% load static %}
 
 {% block title %}{{ title }} | Моя Кастомная Админка{% endblock %}
 
@@ -6,9 +8,26 @@
 <h1 id="site-name"><a href="{% url 'admin:index' %}">Моя Кастомная Админка</a></h1>
 {% endblock %}
 
-{% block nav-global %}
+{% block sidebar %}
     {{ block.super }}
-    <div class="custom-menu">
-        <a href="/custom/admin/custom-menu/">Моя Кастомная Менюшка</a>
+    <div class="sidebar-toggle-wrapper">
+        <button class="sidebar-toggle btn btn-secondary">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
     </div>
+    <div class="collapse navbar-collapse sidebar-stacked">
+        <ul class="nav navbar-nav side-menu">
+            {% for item in side_menu %}
+                <li><a href="{{ item.url }}">{{ item.label }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="{% static 'js/custom_admin.js' %}"></script>
 {% endblock %}

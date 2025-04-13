@@ -47,18 +47,8 @@ JAZZMIN_SETTINGS = {
         {"model": "auth.user", "name": "Пользователи", "permissions": ["auth.view_user"]},
 
         {
-            "name": "Моя Кастомная Менюшка",
+            "name": "Упрвавление сообщениями",  # Название новой страницы
             "url": "/admin/custom-menu/",  # URL для новой страницы
-            "children": [  # Подменю
-                {
-                    "name": "Подменю 1",
-                    "url": "/admin/submenu-1/",
-                },
-                {
-                    "name": "Подменю 2",
-                    "url": "/admin/submenu-2/",
-                },
-            ],
         },
     ],
     
@@ -94,6 +84,7 @@ JAZZMIN_SETTINGS = {
 
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
+        
         
     },
 

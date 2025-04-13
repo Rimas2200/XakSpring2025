@@ -1,9 +1,14 @@
 {% extends "admin/base_site.html" %}
 {% block content %}
-<h1>Моя Кастомная Менюшка</h1>
-<p>Это главная страница кастомной менюшки.</p>
-<ul>
-    <li><a href="{% url 'submenu_1' %}">Подменю 1</a></li>
-    <li><a href="{% url 'submenu_2' %}">Подменю 2</a></li>
-</ul>
+
+
+<div class="container">
+    <h1>Custom Admin Menu</h1>
+    <ul>
+        {% for item in side_menu %}
+            <li><a href="{{ item.url }}">{{ item.lable }}</a></li>
+        {% endfor %}
+    </ul>
+
+
 {% endblock %}
