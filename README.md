@@ -12,9 +12,18 @@
     DATABASE_PASSWORD="YOUR_DATABASE_PASSWORD"
     DATABASE_HOST=localhost # пока что не трогать для докера не нужно будет это менять 
     DATABASE_PORT=5432
+# Модель
+## [Архитектура](model/agriculture_text_transform_model/config.json)
+<p align="center">
+  <img src="model/assets/model_architecturejpg.jpg">
+</p>
 
+## [Обучение](model/train.py)
+<p align="center">
+  <img src="model/assets/trainLoss.jpg">
+</p>
 
-# Примеры работы [нейронной сети](model.py)
+## [Примеры работы](model/test.py)
 Source: `Пахота зяби под мн тр`<br>
 Result: `Пахота зяби под Многолетние травы`
 
