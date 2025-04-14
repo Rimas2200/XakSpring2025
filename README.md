@@ -12,15 +12,15 @@
     DATABASE_PASSWORD="YOUR_DATABASE_PASSWORD"
     DATABASE_HOST=localhost # пока что не трогать для докера не нужно будет это менять 
     DATABASE_PORT=5432
-# [Модель](https://huggingface.co/RimasZzz/agriculture_text_transform_model)
+# [T5 Модель](https://huggingface.co/RimasZzz/agriculture_text_transform_model)
 ## [Архитектура](model/agriculture_text_transform_model/config.json)
 <p align="center">
-  <img src="model/assets/model_architecturejpg.jpg">
+  <img src="T5_model/assets/model_architecturejpg.jpg">
 </p>
 
 ## [Обучение](model/train.py)
 <p align="center">
-  <img src="model/assets/trainLoss.jpg">
+  <img src="T5_model/assets/trainLoss.jpg">
 </p>
 
 ## [Примеры работы](model/test.py)
@@ -38,3 +38,16 @@ Result: `Внесение минеральных удобрений под Пш�
 
 Source: `Прикат мн тр под оз пш`<br>
 Result: `Прикатывание посевов Многолетние травы под Пшеница озимая`
+
+# [ner Модель]()
+## [Архитектура]()
+<p align="center">
+  <img src="">
+</p>
+
+## [Обучение]()
+<p align="center">
+  <img src="">
+</p>
+
+## [Примеры работы]()
