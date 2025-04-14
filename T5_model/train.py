@@ -4,7 +4,7 @@ import torch
 import random
 from tqdm.auto import trange
 from sklearn.model_selection import train_test_split
-from model import load_model_and_tokenizer, save_model_and_tokenizer, MODEL_NAME
+from T5_model import load_model_and_tokenizer, save_model_and_tokenizer, MODEL_NAME
 
 df = pd.read_excel('train.xlsx', header=None, names=['input', 'output'])
 df_train, df_test = train_test_split(df.dropna(), test_size=0.2, random_state=42)

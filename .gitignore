@@ -175,5 +175,9 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-model/agriculture_text_transform_model/model.safetensors
-model/train.xlsx
+T5_model/agriculture_text_transform_model/model.safetensors
+T5_model/train.xlsx
+
+ner_model/ner-model/model.safetensors
+ner_model/train.xlsx
+ner_model/processed_data.json
