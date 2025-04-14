@@ -37,7 +37,7 @@ INSTALLED_APPS = [
 
     'jazzmin',
     'django.contrib.admin',
-
+    'rest_framework',
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,8 +50,9 @@ INSTALLED_APPS = [
     'operation',
     'departaments',
     'connectionsbottg',
+    'llmmodelsapp',
 
-    'rest_framework',
+    
 
 ]
 

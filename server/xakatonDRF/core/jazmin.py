@@ -9,7 +9,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Панель управления",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    #"site_logo": "./image/logo.png",
+    "site_logo": "image/logo.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     #"login_logo": None,
@@ -23,7 +23,7 @@ JAZZMIN_SETTINGS = {
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     "site_icon": None,
 
-    # Welcome text on the login screen
+    # Welcome text on the login screen 
     "welcome_sign": "Добро пожаловать в панель управления",
 
     # Copyright on the footer
@@ -31,7 +31,7 @@ JAZZMIN_SETTINGS = {
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string 
-    "search_model": ["auth.User"],
+    # "search_model": ["auth.User"],
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
@@ -43,8 +43,8 @@ JAZZMIN_SETTINGS = {
     # Links to put along the top menu
     "topmenu_links": [
 
-        {"name": "Главная Страница",  "url": "admin:index", "permissions": ["auth.view_user"]},
-        {"model": "auth.user", "name": "Пользователи", "permissions": ["auth.view_user"]},
+        # {"name": "Главная Страница",  "url": "admin:index", "permissions": ["auth.view_user"]},
+        # {"model": "auth.user", "name": "Пользователи", "permissions": ["auth.view_user"]},
 
         {
             "name": "Упрвавление сообщениями",  # Название новой страницы
@@ -66,17 +66,28 @@ JAZZMIN_SETTINGS = {
     # Side Menu #
     #############
 
+    
+    "side_menu": [
+        {
+            "label": "Кастомные кнопки",
+            "icon": "fas fa-tools",  # Иконка для группы
+            "children": [
+                {"label": "Кнопка 1", "url": "/admin/custom-menu/submenu-1/"},
+                {"label": "Кнопка 2", "url": "/admin/custom-menu/submenu-2/"},
+            ],
+        },
+    ],
     # Whether to display the side menu
     "show_sidebar": True,
 
     # Whether to aut expand the menu
-    "navigation_expanded": True,
+    "navigation_expanded": False,
 
     # Hide these apps when generating side menu e.g (auth)
     "hide_apps": [],
 
     # Hide these models when generating side menu (e.g auth.user)
-    "hide_models": ["auth.group", "auth.user"],  # Скрывает группы и пользователей
+    "hide_models": ["auth.group"],  # Скрывает группы и пользователей
 
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
@@ -84,8 +95,9 @@ JAZZMIN_SETTINGS = {
 
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
-        
-        
+        "llmmodelsapp": [
+            {"name": "Кастомная модель", "url": "/admin/custom-menu"},
+        ]
     },
 
     # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2

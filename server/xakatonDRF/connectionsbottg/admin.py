@@ -24,5 +24,6 @@ class SaveMessagesWhatsAppAdmin(admin.ModelAdmin):
     list_display = ('sender', 'message', 'userid', 'timestamp', 'chat_id')
     search_fields = ('sender', 'message', 'userid', 'chat_id')
     list_filter = ('sender', 'timestamp')
+    
 
 

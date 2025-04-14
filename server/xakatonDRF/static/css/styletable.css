@@ -1,0 +1,106 @@
+/* Контейнер для всей страницы */
+.content-wrapper {
+    position: relative; /* Устанавливаем относительное позиционирование */
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Высота контейнера на весь экран */
+    background-color: var(--body-bg); /* Используем цвет фона из темы Jazzmin */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Левая панель */
+.sidebar-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px; /* Фиксированная ширина */
+    position: absolute; /* Фиксируем панель внутри content-wrapper */
+    top: 100px; /* Располагаем под "Админпанелью" */
+    left: 20px;
+}
+
+/* Основной контент */
+.inner-container {
+    margin-left: 240px; /* Отступ от левой панели */
+    width: calc(100% - 260px); /* Учитываем ширину левой панели */
+    padding: 20px;
+    background-color: var(--card-bg); /* Фон внутреннего блока */
+    border-radius: 10px; /* Скругленные углы */
+    box-sizing: border-box;
+}
+
+/* Верхние кнопки */
+.header-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-start; /* Выравниваем кнопки влево */
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* Зеленый для WhatsApp */
+.header-buttons .btn-primary {
+    background-color: #28a745; /* Зеленый */
+    border-color: #28a745;
+}
+
+.header-buttons .btn-primary:hover {
+    background-color: #1e7e34; /* Темно-зеленый при наведении */
+    border-color: #1e7e34;
+}
+
+/* Синий для Telegram */
+.header-buttons .btn-success {
+    background-color: #007bff; /* Синий */
+    border-color: #007bff;
+}
+
+.header-buttons .btn-success:hover {
+    background-color: #0056b3; /* Темно-синий при наведении */
+    border-color: #0056b3;
+}
+
+/* Таблица */
+.custom-table {
+    border: 2px solid #ccc;
+    table-layout: fixed;
+    width: 100%;
+    margin-top: 20px; /* Отступ сверху */
+    background-color: var(--card-bg); /* Используем цвет карточек из темы Jazzmin */
+    color: var(--text-color); /* Используем цвет текста из темы Jazzmin */
+    border-radius: 5px; /* Скругленные углы */
+    overflow: hidden;
+}
+
+.custom-table th,
+.custom-table td {
+    border: 1px solid #ccc;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+/* Нижние кнопки */
+.footer-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end; /* Кнопки выравниваются вправо */
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Кнопки в боковой панели */
+.sidebar-buttons button {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    cursor: pointer;
+}
+
+.sidebar-buttons button:hover {
+    background-color: #555;
+}

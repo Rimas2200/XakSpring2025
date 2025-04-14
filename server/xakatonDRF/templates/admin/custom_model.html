@@ -1,5 +1,9 @@
 {% extends "admin/base_site.html" %}
 {% block content %}
 <h1>{{ title }}</h1>
-<p>Это страница для Кнопки 1.</p>
+<ul>
+    {% for item in data %}
+        <li>{{ item.name }}</li>
+    {% endfor %}
+</ul>
 {% endblock %}

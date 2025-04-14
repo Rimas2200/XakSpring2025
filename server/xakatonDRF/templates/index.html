@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Таблица операций</title>
+    <!-- Подключим Bootstrap (пример с CDN) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <style>
+      .custom-table {
+        border: 2px solid #ccc;
+        table-layout: fixed;
+        width: 100%;
+      }
+      .custom-table th,
+      .custom-table td {
+        border: 1px solid #ccc;
+        text-align: center;
+        vertical-align: middle;
+      }
+      /* Дополнительно стилизуем кнопки над таблицей */
+      .header-buttons {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        justify-content: center;
+      }
+      .footer-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body class="p-3">
+    <div class="header-buttons">
+      <button class="btn btn-primary">Получить данные из WhatsApp</button>
+      <button class="btn btn-success">Получить данные из Telegram</button>
+      <button class="btn btn-secondary">Настройка сбора сообщений</button>
+    </div>
+
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>Дата</th>
+          <th>Подразделение</th>
+          <th>Операции</th>
+          <th>Культура</th>
+          <th>За день, га</th>
+          <th>с нач. опер., га</th>
+          <th>Вал за день</th>
+          <th>Вал к началу</th>
+          <th>Ред.</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in records %}
+        <tr>
+          <td>{{ record.date }}</td>
+          <td>{{ record.subdivision }}</td>
+          <td>{{ record.operation }}</td>
+          <td>{{ record.culture }}</td>
+          <td>{{ record.area_day }}</td>
+          <td>{{ record.area_total }}</td>
+          <td>{{ record.val_day }}</td>
+          <td>{{ record.val_total }}</td>
+          <td>
+            <!-- Кнопка "Ред." -->
+            <a
+              href="{% url 'edit_record' record.id %}"
+              class="btn btn-sm btn-warning"
+              >Ред.</a
+            >
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="footer-buttons">
+      <button class="btn btn-danger">Очистить</button>
+      <button class="btn btn-info">Выгрузить</button>
+      <button class="btn btn-secondary">Архивировать</button>
+    </div>
+
+    <!-- Подключим Bootstrap JS (для доп. функционала) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
