@@ -4,7 +4,8 @@ from openpyxl import load_workbook, Workbook
 import os
 import re
 
-model_path = "./ner-model"
+#model_path = "./ner-model/ner-model"
+model_path = os.path.join(os.getcwd(), "ner_model", "ner-model")
 tokenizer = BertTokenizerFast.from_pretrained(model_path)
 model = BertForTokenClassification.from_pretrained(model_path)
 
@@ -270,7 +271,7 @@ def write_to_excel(entities, file_name="Таблица (полевые рабо�
     workbook.save(file_name)
 
 
-if __name__ == "__main__":
+"""if __name__ == "__main__":
     # example_text = "Уборка Соя товарная (семенной) Отд 11 65/65 Вал 58720 Урож 9"
     # example_text = "Пахота под Соя товарная: День - 295 га От начала - 6804 га (79%) Остаток- 1774 га, ЮГ"
     # example_text = "14.04 Предпосевная культивация под Пшеница озимая По ПУ 146/1217 Отд 11 146/233"
@@ -285,3 +286,4 @@ if __name__ == "__main__":
     entities = process_department(entities)
     entities = process_yield_total(entities)
     write_to_excel(entities)
+"""

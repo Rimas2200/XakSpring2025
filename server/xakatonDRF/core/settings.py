@@ -9,6 +9,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -27,10 +29,15 @@ ALLOWED_HOSTS = []
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Static files (CSS, JavaScript, Images)
+
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Укажите путь к папке static
+    os.path.join(BASE_DIR, 'static'),  # Папка для разработки
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Папка для сборки на продакшене
+
 # Application definition
 
 LOGIN_REDIRECT_URL = '/'
@@ -38,25 +45,27 @@ LOGIN_REDIRECT_URL = '/'
 INSTALLED_APPS = [
 
     'jazzmin',
-    # General use templates & template tags (should appear first)
-    #'adminlte3',
-     # Optional: Django admin theme (must be before django.contrib.admin)
-    #'adminlte3_theme',
+    
     'django.contrib.admin',
-    'rest_framework',
+    
+
 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'custom_admin',
+    
+    'rest_framework',
+    
+    'main',
     'culture',
     'operation',
+    'custom_admin',
+    'llmmodelsapp',
     'departaments',
     'connectionsbottg',
-    'llmmodelsapp',
+    
 
     
 
@@ -157,7 +166,3 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-

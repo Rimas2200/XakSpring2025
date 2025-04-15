@@ -2,11 +2,13 @@
 .content-wrapper {
     position: relative; /* Устанавливаем относительное позиционирование */
     display: flex;
+    justify-content: center; /* Центрируем таблицу */
     flex-direction: column;
     height: 100%; /* Высота контейнера на весь экран */
     background-color: var(--body-bg); /* Используем цвет фона из темы Jazzmin */
     padding: 20px;
     box-sizing: border-box;
+    margin-top: 20px;
 }
 
 /* Левая панель */
@@ -23,7 +25,8 @@
 /* Основной контент */
 .inner-container {
     margin-left: 240px; /* Отступ от левой панели */
-    width: calc(100% - 260px); /* Учитываем ширину левой панели */
+    width: 100%; /* Растягиваем таблицу на всю ширину */
+    max-width: 1200px; /* Ограничиваем максимальную ширину */
     padding: 20px;
     background-color: var(--card-bg); /* Фон внутреннего блока */
     border-radius: 10px; /* Скругленные углы */
@@ -33,10 +36,13 @@
 /* Верхние кнопки */
 .header-buttons {
     display: flex;
-    gap: 20px;
     justify-content: flex-start; /* Выравниваем кнопки влево */
-    margin-bottom: 20px;
-    width: 100%;
+    gap: 10px; /* Расстояние между кнопками */
+    margin-bottom: 20px; /* Отступ снизу */
+    padding: 10px 20px; /* Внутренние отступы */
+    background-color: var(--card-bg); /* Фон кнопок */
+    border-radius: 8px; /* Скругленные углы */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
 }
 
 /* Зеленый для WhatsApp */
@@ -61,31 +67,70 @@
     border-color: #0056b3;
 }
 
-/* Таблица */
-.custom-table {
-    border: 2px solid #ccc;
-    table-layout: fixed;
-    width: 100%;
-    margin-top: 20px; /* Отступ сверху */
-    background-color: var(--card-bg); /* Используем цвет карточек из темы Jazzmin */
-    color: var(--text-color); /* Используем цвет текста из темы Jazzmin */
-    border-radius: 5px; /* Скругленные углы */
-    overflow: hidden;
+/* Центрирование таблицы с сдвигом вправо */
+.table-container {
+    display: flex;
+    justify-content: flex-start; /* Сдвигаем таблицу влево */
+    margin-top: 20px;
+    padding-left: 20px; /* Добавляем отступ слева */
 }
 
-.custom-table th,
-.custom-table td {
-    border: 1px solid #ccc;
+/* Стили для таблицы */
+.custom-table {
+    width: 100%; /* Таблица занимает всю доступную ширину */
+    border-collapse: collapse;
+    font-size: 16px; /* Размер текста */
     text-align: center;
-    vertical-align: middle;
-    padding: 10px;
+    background-color: var(--card-bg); /* Используем фон из темы Jazzmin */
+    border: 1px solid var(--card-border-color); /* Цвет границы из темы Jazzmin */
+    color: var(--body-color); /* Цвет текста из темы Jazzmin */
+    border-radius: 8px; /* Скругленные углы таблицы */
+    overflow: hidden; /* Убираем лишние элементы за границами */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Добавляем лёгкую тень */
+}
+
+.custom-table th, .custom-table td {
+    border: 1px solid var(--card-border-color); /* Цвет границы */
+    padding: 12px; /* Отступы внутри ячеек */
+}
+
+.custom-table th {
+    background-color: var(--primary); /* Цвет заголовка таблицы */
+    color: var(--primary-contrast); /* Цвет текста заголовка */
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: var(--card-bg-alt); /* Чередующийся цвет строк */
+}
+
+.custom-table tr:hover {
+    background-color: var(--card-hover-bg); /* Цвет строки при наведении */
+}
+
+/* Стили для ввода в таблице */
+.table-input {
+    width: 100%; /* Поля ввода занимают всю ширину ячейки */
+    border: 1px solid var(--input-border-color); /* Цвет границы ввода */
+    padding: 10px; /* Увеличиваем отступы внутри полей */
+    font-size: 14px; /* Размер текста */
+    box-sizing: border-box;
+    text-align: center;
+    background-color: var(--input-bg); /* Фон ввода */
+    color: var(--input-color); /* Цвет текста ввода */
+}
+
+.table-input:focus {
+    border-color: var(--primary); /* Цвет границы при фокусе */
+    outline: none;
+    background-color: var(--input-focus-bg); /* Фон при фокусе */
 }
 
 /* Нижние кнопки */
 .footer-buttons {
     display: flex;
-    gap: 20px;
-    justify-content: flex-end; /* Кнопки выравниваются вправо */
+    justify-content: center;
+    gap: 10px;
     margin-top: 20px;
     width: 100%;
 }

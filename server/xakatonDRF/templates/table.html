@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="data-table">
+    <h1>Таблица данных</h1>
+
+    <!-- Контейнер для таблицы -->
+    <div class="content-wrapper">
+        {% include "partials/table_content.html" %}
+    </div>
+</div>
+
+<!-- Нижние кнопки -->
+<div class="footer-buttons">
+    <button class="btn btn-danger">Очистить</button>
+    <button class="btn btn-info">Выгрузить</button>
+    <button class="btn btn-secondary">Архивировать</button>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/table.js' %}"></script>
+{% endblock %}

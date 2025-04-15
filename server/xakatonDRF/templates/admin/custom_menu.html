@@ -4,67 +4,51 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/styletable.css' %}">
 
+<!-- Верхние кнопки -->
+<div class="header-buttons">
+    <button class="btn btn-primary">Получить данные из WhatsApp</button>
+    <button class="btn btn-success">Получить данные из Telegram</button>
+    <button class="btn btn-secondary">Настройка сбора сообщений</button>
+</div>
+
+<!-- Контейнер для таблицы -->
 <div class="content-wrapper">
-    <!-- Боковая панель -->
-    <div class="sidebar-buttons">
-        <button>Главная страница</button>
-        <button>Принадлежность отделений и ПУ</button>
-        <button>Названия операций</button>
-        <button>Наименование культур</button>
-        <button>Архив</button>
-        <button>Обучение модели</button>
-        <button>Выход</button>
-    </div>
-
-    <!-- Основной контент -->
     <div class="inner-container">
-        <!-- Верхние кнопки -->
-        <div class="header-buttons">
-            <button class="btn btn-primary">Получить данные из WhatsApp</button>
-            <button class="btn btn-success">Получить данные из Telegram</button>
-            <button class="btn btn-secondary">Настройка сбора сообщений</button>
-        </div>
-
-        <!-- Таблица -->
         <table class="custom-table">
             <thead>
                 <tr>
-                    <th>Дата</th>
-                    <th>Подразделение</th>
-                    <th>Операции</th>
-                    <th>Культура</th>
-                    <th>За день, га</th>
-                    <th>с нач. опер., га</th>
-                    <th>Вал за день</th>
-                    <th>Вал к началу</th>
-                    <th>Ред.</th>
+                    <th>Сущность</th>
+                    <th>Текст</th>
+                    <th>Начало</th>
+                    <th>Конец</th>
                 </tr>
             </thead>
             <tbody>
                 {% for record in records %}
                 <tr>
-                    <td>{{ record.date }}</td>
-                    <td>{{ record.subdivision }}</td>
-                    <td>{{ record.operation }}</td>
-                    <td>{{ record.culture }}</td>
-                    <td>{{ record.area_day }}</td>
-                    <td>{{ record.area_total }}</td>
-                    <td>{{ record.val_day }}</td>
-                    <td>{{ record.val_total }}</td>
                     <td>
-                        <a href="{% url 'edit_record' record.id %}" class="btn btn-sm btn-warning">Ред.</a>
+                        <input type="text" name="entity" value="{{ record.entity }}" class="table-input">
+                    </td>
+                    <td>
+                        <input type="text" name="text" value="{{ record.text }}" class="table-input">
+                    </td>
+                    <td>
+                        <input type="number" name="start" value="{{ record.start }}" class="table-input">
+                    </td>
+                    <td>
+                        <input type="number" name="end" value="{{ record.end }}" class="table-input">
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
-
-        <!-- Нижние кнопки -->
-        <div class="footer-buttons">
-            <button class="btn btn-danger">Очистить</button>
-            <button class="btn btn-info">Выгрузить</button>
-            <button class="btn btn-secondary">Архивировать</button>
-        </div>
     </div>
+</div>
+
+<!-- Нижние кнопки -->
+<div class="footer-buttons">
+    <button class="btn btn-danger">Очистить</button>
+    <button class="btn btn-info">Выгрузить</button>
+    <button class="btn btn-secondary">Архивировать</button>
 </div>
 {% endblock %}

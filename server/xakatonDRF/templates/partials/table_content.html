@@ -1,0 +1,28 @@
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th>Сущность</th>
+            <th>Текст</th>
+            <th>Начало</th>
+            <th>Конец</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in records %}
+        <tr>
+            <td>
+                <input type="text" name="entity" value="{{ record.entity }}" class="table-input">
+            </td>
+            <td>
+                <input type="text" name="text" value="{{ record.text }}" class="table-input">
+            </td>
+            <td>
+                <input type="number" name="start" value="{{ record.start }}" class="table-input">
+            </td>
+            <td>
+                <input type="number" name="end" value="{{ record.end }}" class="table-input">
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

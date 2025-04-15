@@ -185,5 +185,9 @@ Test_Date/Очищенные_сокращения.xlsx
 Test_Date/cleaned_data.xlsx
 Test_Date/date_stolb_1.xlsx
 Test_Date/date.xlsx
-.gitignore
 agriculture_text_transform_model1.zip
+
+server/xakatonDRF/ner_model/ner-model/model.safetensors
+server/xakatonDRF/ner_model/Таблица (полевые работы).xlsx
+server/xakatonDRF/T5_model/agriculture_text_transform_model/model.safetensors
+server/xakatonDRF/T5_model/agriculture_text_transform_model/spiece.model

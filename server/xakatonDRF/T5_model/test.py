@@ -1,6 +1,8 @@
 from T5_model import load_model_and_tokenizer, transform_text
 import pandas as pd
 
+
+
 # Загрузка модели и токенизатора
 model, tokenizer = load_model_and_tokenizer()
 

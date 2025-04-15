@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Панель управления{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <!-- Верхняя панель -->
+    <div class="topbar">
+        <div class="topbar-buttons">
+        </div>
+    </div>
+
+    <!-- Боковое меню -->
+    <div class="sidebar" id="sidebar">
+        <button class="menu-toggle-btn" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h2>Главное Меню</h2>
+        <ul>
+            <li><a href="/"><i class="fas fa-home"></i> <span>Главная</span></a></li>
+            <li><a href="table"><i class="fas fa-table"></i> <span>Таблица данных</span></a></li>
+        </ul>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="content" id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

@@ -90,8 +90,8 @@ JAZZMIN_SETTINGS = {
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
         "custom_admin": [{
-            "name": "Кастомная модель",
-            "url": "/admin/custom-menu/",
+            "name": "Запуск модели",
+            "url": "/admin/model/",
             "icon": "fas fa-user-cog",
             },
         ]
