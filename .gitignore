@@ -181,3 +181,9 @@ T5_model/train.xlsx
 ner_model/ner-model/model.safetensors
 ner_model/train.xlsx
 ner_model/processed_data.json
+Test_Date/Очищенные_сокращения.xlsx
+Test_Date/cleaned_data.xlsx
+Test_Date/date_stolb_1.xlsx
+Test_Date/date.xlsx
+.gitignore
+agriculture_text_transform_model1.zip

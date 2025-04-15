@@ -3,6 +3,7 @@ app_modules_message = {
     "app_url": "",
     "name": "Управление сообщениями",
     
+    
 }
 
 """'models': [{
