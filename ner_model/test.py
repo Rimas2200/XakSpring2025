@@ -3,10 +3,42 @@ from transformers import BertTokenizerFast, BertForTokenClassification
 from openpyxl import load_workbook, Workbook
 import os
 import re
+import sys
+from transformers import T5ForConditionalGeneration, T5Tokenizer
+
+model_path = "../T5_model/agriculture_text_transform_model"
+T5tokenizer = T5Tokenizer.from_pretrained(model_path)
+T5model = T5ForConditionalGeneration.from_pretrained(model_path).cuda()
+T5model.eval()
+
+
+def transform_text(text):
+    inputs = T5tokenizer(
+        text,
+        return_tensors='pt',
+        truncation=True,
+        max_length=128
+    ).to(T5model.device)
+
+    with torch.no_grad():
+        outputs = T5model.generate(
+            **inputs,
+            max_length=128,
+            num_beams=5,
+            repetition_penalty=2.5,
+            early_stopping=True
+        )
+
+    return T5tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+def preprocess_with_t5(text):
+    transformed_text = transform_text(text)
+    return transformed_text
+
 
 model_path = "./ner-model"
-tokenizer = BertTokenizerFast.from_pretrained(model_path)
-model = BertForTokenClassification.from_pretrained(model_path)
+tokenizer_ner = BertTokenizerFast.from_pretrained(model_path)
+model_ner = BertForTokenClassification.from_pretrained(model_path)
 
 label_list = ['B-CROP', 'B-DATE', 'B-DEPARTMENT', 'B-HECTARE', 'B-OPERATION', 'B-SUBUNIT', 'B-YIELD_TOTAL', 'I-CROP', 'I-DEPARTMENT', 'I-HECTARE', 'I-OPERATION', 'I-SUBUNIT', 'I-YIELD_TOTAL', 'O']
 
@@ -46,7 +78,7 @@ def remove_duplicate_words(text):
 def predict_entities(text):
     words = text.split()
 
-    inputs = tokenizer(
+    inputs = tokenizer_ner(
         words,
         is_split_into_words=True,
         return_tensors="pt",
@@ -56,7 +88,7 @@ def predict_entities(text):
     )
 
     with torch.no_grad():
-        outputs = model(**inputs)
+        outputs = model_ner(**inputs)
 
     predictions = torch.argmax(outputs.logits, dim=2)[0].tolist()
 
@@ -270,18 +302,25 @@ def write_to_excel(entities, file_name="Таблица (полевые рабо�
     workbook.save(file_name)
 
 
-if __name__ == "__main__":
-    # example_text = "Уборка Соя товарная (семенной) Отд 11 65/65 Вал 58720 Урож 9"
-    # example_text = "Пахота под Соя товарная: День - 295 га От начала - 6804 га (79%) Остаток- 1774 га, ЮГ"
-    # example_text = "14.04 Предпосевная культивация под Пшеница озимая По ПУ 146/1217 Отд 11 146/233"
-    example_text = "16.11 Мир Пахота под Кукуруза товарная 30 га, 699 га, 89%, 73 га остаток. Пахота под Соя товарная 30 га, 779 га, Работало 2 агрегата."
-    entities = predict_entities(example_text)
+# if __name__ == "__main__":
+# example_text = "Уборка Соя товарная (семенной) Отд 11 65/65 Вал 58720 Урож 9"
+# example_text = "Пахота под Соя товарная: День - 295 га От начала - 6804 га (79%) Остаток- 1774 га, ЮГ"
+# example_text = "14.04 Предпосевная культивация под Пшеница озимая По ПУ 146/1217 Отд 11 146/233"
+# example_text = "16.11 Мир Пахота под Кукуруза товарная 30 га, 699 га, 89%, 73 га остаток."
+# example_text = "16.11 Мир Пахота под Соя товарная 30 га, 779 га, Работало 2 агрегата."
+example_text = "15.10 Пахота под сах св По Пу 88/329 Отд 11 23/60 Отд 12 34/204 Отд 16 31/65"
+# example_text = "15.10 2-е диск под сах св По Пу 112/817 Отд 16 112/594"
+print(example_text)
+entities = preprocess_with_t5(example_text)
+print(entities)
+entities = predict_entities(entities)
+print(entities)
 
-    print("Текст:", example_text)
-    print("Извлеченные сущности:")
-    for entity in entities:
-        print(f"- {entity['entity']}: '{entity['text']}'")
-    entities = process_subunit_and_hectare(entities)
-    entities = process_department(entities)
-    entities = process_yield_total(entities)
-    write_to_excel(entities)
+# print("Текст:", example_text)
+# print("Извлеченные сущности:")
+# for entity in entities:
+#     print(f"- {entity['entity']}: '{entity['text']}'")
+entities = process_subunit_and_hectare(entities)
+entities = process_department(entities)
+entities = process_yield_total(entities)
+write_to_excel(entities)
