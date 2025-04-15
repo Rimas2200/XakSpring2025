@@ -174,7 +174,7 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
-<<<<<<< HEAD
+
 Test_Date/Очищенные_сокращения.xlsx
 Test_Date/cleaned_data.xlsx
 Test_Date/date_stolb_1.xlsx
@@ -188,5 +188,7 @@ agriculture_text_transform_model1/model.safetensors
 agriculture_text_transform_model1/special_tokens_map.json
 agriculture_text_transform_model1/spiece.model
 agriculture_text_transform_model1/tokenizer_config.json
-=======
->>>>>>> parent of a943ed3 (Рабочая версия тг бота с сохранением файлов без сжатия)
+
+
+model/agriculture_text_transform_model/model.safetensors
+model/train.xlsx
