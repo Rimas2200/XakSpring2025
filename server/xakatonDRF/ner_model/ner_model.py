@@ -2,6 +2,7 @@ import json
 from transformers import BertTokenizerFast, BertForTokenClassification, Trainer, TrainingArguments
 from datasets import Dataset
 import torch
+from pathlib import Path
 
 def load_data_from_json(file_path):
     with open(file_path, "r", encoding="utf-8") as f:
@@ -63,7 +64,6 @@ trainer = Trainer(
 
 trainer.train()
 
-model.save_pretrained("./ner-T5_model")
-tokenizer.save_pretrained("./ner-T5_model")
+model.save_pretrained("./ner-model")
 
-print("Модель сохранена в ./ner-T5_model")
+print("Модель сохранена в ./ner-model")
