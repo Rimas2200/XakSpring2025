@@ -6,9 +6,17 @@ import re
 import sys
 from transformers import T5ForConditionalGeneration, T5Tokenizer
 
-model_path = "../T5_model/agriculture_text_transform_model"
-T5tokenizer = T5Tokenizer.from_pretrained(model_path)
-T5model = T5ForConditionalGeneration.from_pretrained(model_path).cuda()
+# Указываем путь к локальной модели
+# model_path = os.path.getcwd() + "/T5_model/agriculture_text_transform_model"
+model_path = os.path.join(os.getcwd(), "T5_model", "agriculture_text_transform_model")
+# Проверяем, существует ли путь
+print(model_path)
+if not os.path.exists(model_path):
+    raise FileNotFoundError(f"Модель не найдена по пути: {model_path}")
+
+# Загружаем токенайзер и модель с локального пути
+T5tokenizer = T5Tokenizer.from_pretrained(model_path, local_files_only=True)
+T5model = T5ForConditionalGeneration.from_pretrained(model_path, local_files_only=True).to(torch.device('cpu') )
 T5model.eval()
 
 
@@ -35,8 +43,7 @@ def preprocess_with_t5(text):
     transformed_text = transform_text(text)
     return transformed_text
 
-
-model_path = "./ner-model"
+model_path = os.path.join(os.getcwd(), "ner_model", "ner-model")
 tokenizer_ner = BertTokenizerFast.from_pretrained(model_path)
 model_ner = BertForTokenClassification.from_pretrained(model_path)
 
