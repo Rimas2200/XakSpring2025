@@ -7,3 +7,4 @@ from custom_admin.custom_admin import custom_admin_site
 @admin.register(WhatsAppChat, site=custom_admin_site)
 class WhatsAppChatAdmin(admin.ModelAdmin):
     list_display = ('chat_name', 'chat_id')
+    

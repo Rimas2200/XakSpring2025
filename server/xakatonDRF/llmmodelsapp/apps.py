@@ -6,3 +6,5 @@ class LlmmodelsappConfig(AppConfig):
     name = 'llmmodelsapp'
     
     verbose_name = 'Модуль по работе с неиронной моделью'
+    
+    

@@ -1,14 +1,10 @@
 
 from django.shortcuts import render
+from .custom_admin import custom_admin_site
 
 def custom_menu_view(request):
-    return render(request, 'admin/custom_menu.html', {
-        'title': 'Управлени сообщениями',
-        'side_menu': [
-                {'label': 'Подменю 1', 'url': '/admin/custom-menu/submenu-1/'},
-                {'label': 'Подменю 2', 'url': '/admin/custom-menu/submenu-2/'},
-            ]
-        })
+    
+    return render(request, 'admin/custom_menu.html')
 
 
 def submenu_1_view(request):

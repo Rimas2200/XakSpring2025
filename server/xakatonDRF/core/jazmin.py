@@ -66,19 +66,13 @@ JAZZMIN_SETTINGS = {
     # Side Menu #
     #############
 
-    
-    "side_menu": [
-        {
-            "label": "Кастомные кнопки",
-            "icon": "fas fa-tools",  # Иконка для группы
-            "children": [
-                {"label": "Кнопка 1", "url": "/admin/custom-menu/submenu-1/"},
-                {"label": "Кнопка 2", "url": "/admin/custom-menu/submenu-2/"},
-            ],
-        },
-    ],
     # Whether to display the side menu
     "show_sidebar": True,
+    
+    "side_menu": [
+        
+        
+    ],
 
     # Whether to aut expand the menu
     "navigation_expanded": False,
@@ -95,8 +89,10 @@ JAZZMIN_SETTINGS = {
 
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
-        "llmmodelsapp": [
-            {"name": "Кастомная модель", "url": "/admin/custom-menu"},
+        "llmmodelsapp": [{
+            "name": "Кастомная модель",
+            "url": "/admin/",
+            },
         ]
     },
 
