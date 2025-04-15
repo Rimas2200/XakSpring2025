@@ -175,20 +175,9 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-Test_Date/Очищенные_сокращения.xlsx
-Test_Date/cleaned_data.xlsx
-Test_Date/date_stolb_1.xlsx
-Test_Date/date.xlsx
-agriculture_text_transform_model1.zip
-agriculture_text_transform_model/config.json
-agriculture_text_transform_model/generation_config.json
-agriculture_text_transform_model1/config.json
-agriculture_text_transform_model1/generation_config.json
-agriculture_text_transform_model1/model.safetensors
-agriculture_text_transform_model1/special_tokens_map.json
-agriculture_text_transform_model1/spiece.model
-agriculture_text_transform_model1/tokenizer_config.json
+T5_model/agriculture_text_transform_model/model.safetensors
+T5_model/train.xlsx
 
-
-model/agriculture_text_transform_model/model.safetensors
-model/train.xlsx
+ner_model/ner-model/model.safetensors
+ner_model/train.xlsx
+ner_model/processed_data.json
