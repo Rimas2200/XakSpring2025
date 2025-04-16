@@ -33,8 +33,6 @@ def clean_text(text):
     text = re.sub(r'[^\w\s<SAFE_HYPHEN><DOT>]', ' ', text)
     text = text.replace('<SAFE_HYPHEN>', '-').replace('<DOT>', '.').replace('<SAFE_SLASH>', '/')
     text = re.sub(r'(?i)\bпопу\b', 'По Пу', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
 
 
 profile_path = os.path.join(os.getcwd(), "chrome_profile")
@@ -78,6 +76,7 @@ except Exception as e:
     driver.quit()
     exit()
 
+    
 old_message_count = 0
 while True:
     messages = driver.find_elements(By.XPATH, '//div[contains(@class, "copyable-text")]')
@@ -88,6 +87,7 @@ while True:
     driver.execute_script("arguments[0].scrollTop = 0;", chat_container)
     time.sleep(2)
 
+
 pre_text_pattern = re.compile(r"\[(\d{1,2}:\d{2}), (\d{1,2}\.\d{1,2}\.\d{4})] (.*?):")
 quote_text_pattern = re.compile(r'^\[\d{1,2}:\d{2}, \d{2}\.\d{2}\.\d{4}] .+?:')
 
@@ -95,6 +95,8 @@ filter_words = [
     "попу", "аор", "тск", "мир", "восход", "ао кропоткинское",
     "колхоз прогресс", "сп коломейцево", "пу", "отд"
 ]
+
+
 
 date_pattern = re.compile(r'\b\d{1,2}\.\d{1,2}(?:\.\d{2,4})?\b')
 
@@ -117,6 +119,7 @@ for msg in messages:
 
     if any(quote_text_pattern.match(line.strip()) for line in lines):
         continue
+
 
     msg_text_lower = msg_text.lower()
     if any(re.search(rf"\b{re.escape(word)}\b", msg_text_lower) for word in filter_words):
