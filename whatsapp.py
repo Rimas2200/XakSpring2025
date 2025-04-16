@@ -147,6 +147,8 @@ for msg in messages:
         found_date = date_pattern.search(msg_single_line)
         if found_date:
             message_date = found_date.group(0)
+            # Удаляем дату из текста сообщения
+            msg_single_line = msg_single_line.replace(message_date, '').strip()
         else:
             message_date = "17.04"
 
