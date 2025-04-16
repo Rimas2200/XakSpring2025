@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
 
+{% block content %}
 <div class="data-table">
     <h1>Таблица данных</h1>
 
@@ -14,7 +14,31 @@
 <!-- Нижние кнопки -->
 <div class="footer-buttons">
     <button class="btn btn-danger">Очистить</button>
-    <button class="btn btn-info">Выгрузить</button>
+    <button class="btn btn-info" onclick="showExportModal()">Выгрузить</button>
     <button class="btn btn-secondary">Архивировать</button>
 </div>
+
+<!-- Модальное окно выбора формата -->
+<div id="exportModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="hideExportModal()">&times;</span>
+        <h3>Выберите формат экспорта</h3>
+        <div class="modal-buttons">
+            <button class="modal-btn word-btn" onclick="exportToWord()">
+                <i class="fas fa-file-word"></i> Word
+            </button>
+            <button class="modal-btn excel-btn" onclick="exportToExcel()">
+                <i class="fas fa-file-excel"></i> Excel
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+
+<script src="{% static 'js/export.js' %}"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
+
 {% endblock %}

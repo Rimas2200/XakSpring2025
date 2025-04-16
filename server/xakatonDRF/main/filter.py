@@ -1,12 +1,12 @@
 import datetime
 import re
-
+from tqdm import tqdm
 def format_to_single_line(data :str) -> str:
     # Удаляем лишние пробелы и переносы строк
     lines = data.splitlines()
     cleaned_lines = []
 
-    for line in lines:
+    for line in tqdm(lines):
         # Убираем лишние пробелы в начале и конце строки
         stripped_line = line.strip()
         if stripped_line:  # Добавляем только непустые строки
@@ -58,7 +58,7 @@ def split_data_into_single_lines(data):
     result = []
     current_group = []
 
-    for line in lines:
+    for line in tqdm(lines):
         stripped_line = line.strip()
         if not stripped_line:
             # Пропускаем пустые строки

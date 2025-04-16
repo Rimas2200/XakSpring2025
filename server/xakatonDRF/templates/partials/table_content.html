@@ -18,27 +18,35 @@
     </thead>
     <tbody>
         {% for row in grouped_records %}
+        
         <tr>
-            <td>{{ row.DATE }}</td>
-            <td>{{ row.DEPARTMENT }}</td>
-            <td>{{ row.OPERATION }}</td>
+            <td>
+                <input type="text" name="entity" value="{{ row.DATE }}" class="table-input">
+            </td>
+            <td>
+                <input type="text" name="text" value="{{ row.DEPARTMENT }}" class="table-input">
+            </td>
+            <td>
+                <input type="text" name="text" value="{{ row.OPERATION }}" class="table-input">
+            </td>
 
-            <td>{{ row.CROP }}</td>
-            <!--- <td>{{ row.HECTARE }}</td> --->
+            <td>
+                <input type="text" name="text" value="{{ row.CROP }}" class="table-input">
+            </td>
+            <td>
+                <input type="text" name="text" value="{{ row.HECTARE }}" class="table-input">
+            </td> 
+
+            <td>
+                <input type="text" name="text" value="{{ row.SUBUNIT }}" class="table-input">
+            </td> 
             
-            <td>{{ row.HECTARE }}</td>
-            <td>{{ row.TOTAL_HECTARE }}</td>
-
-            <!-- <td>{{ row.SUBUNIT }}</td> --->
-
-            <td>{{ row.DAY_YIELD }}</td>
-            <td>{{ row.YIELD_TOTAL }}</td>
-            
-
-            
-
-            
-
+            <td>
+                <input type="text" name="text" value="{{ row.DAY_YIELD }}" class="table-input">
+            </td>
+            <td>
+                <input type="text" name="text" value="{{ row.YIELD_TOTAL }}" class="table-input">
+            </td>
             
         </tr>
         {% endfor %}
