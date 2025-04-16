@@ -47,7 +47,45 @@ model_path = os.path.join(os.getcwd(), "ner_model", "ner-model")
 tokenizer_ner = BertTokenizerFast.from_pretrained(model_path)
 model_ner = BertForTokenClassification.from_pretrained(model_path)
 
-label_list = ['B-CROP', 'B-DATE', 'B-DEPARTMENT', 'B-HECTARE', 'B-OPERATION', 'B-SUBUNIT', 'B-YIELD_TOTAL', 'I-CROP', 'I-DEPARTMENT', 'I-HECTARE', 'I-OPERATION', 'I-SUBUNIT', 'I-YIELD_TOTAL', 'O']
+"""
+O - символы, которые нахуй не нужны # не нужная информация
+
+B-OPERATION - начало наименование операции
+I-OPERATION - часть операции
+
+B-CROP - начало наименования культуры
+I-CROP - часть культуры
+
+B-DATE - дата
+
+B-SUBUNIT - начинает наименование пу
+I-SUBUNIT - наименование пу
+
+B-DEPARTMENT - начинает наименование отделения
+I-DEPARTMENT - наименование отделения
+
+B-YIELD_TOTAL - вал и все с ним связанное
+
+B-HECTARE - га
+I-HECTARE - га
+"""
+label_list = [
+    'B-CROP', 
+    'B-DATE', 
+    'B-DEPARTMENT', 
+    'B-HECTARE', 
+    'B-OPERATION', 
+    'B-SUBUNIT', 
+    'B-YIELD_TOTAL', 
+    
+    'I-CROP', 
+    'I-DEPARTMENT', 
+    'I-HECTARE', 
+    'I-OPERATION', 
+    'I-SUBUNIT', 
+    'I-YIELD_TOTAL', 
+    'O'
+]
 
 
 department_mapping = {
@@ -308,7 +346,7 @@ def write_to_excel(entities, file_name="Таблица (полевые рабо�
         sheet.append([row_data[header] for header in headers])
     workbook.save(file_name)
 
-
+"""
 # if __name__ == "__main__":
 # example_text = "Уборка Соя товарная (семенной) Отд 11 65/65 Вал 58720 Урож 9"
 # example_text = "Пахота под Соя товарная: День - 295 га От начала - 6804 га (79%) Остаток- 1774 га, ЮГ"
@@ -330,4 +368,4 @@ print(entities)
 entities = process_subunit_and_hectare(entities)
 entities = process_department(entities)
 entities = process_yield_total(entities)
-write_to_excel(entities)
+write_to_excel(entities)"""

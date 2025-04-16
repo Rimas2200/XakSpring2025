@@ -18,7 +18,7 @@ def custom_menu_view(request):
         {'end': 21, 'entity': 'OPERATION', 'start': 20, 'text': 'сев'}
     ]
     print(result)  # Отладочный вывод
-    return render(request, 'admin/custom_menu.html', {'records': result})
+    return render(request, 'admin/custom_menu.html', {'records': model_data})
 
 
 def submenu_1_view(request):

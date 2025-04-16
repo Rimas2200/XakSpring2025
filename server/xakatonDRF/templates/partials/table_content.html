@@ -1,28 +1,47 @@
 <table class="custom-table">
     <thead>
         <tr>
-            <th>Сущность</th>
-            <th>Текст</th>
-            <th>Начало</th>
-            <th>Конец</th>
+            <th>Дата</th>
+            <th>Подразделение</th>
+            <th>Операция</th>
+            
+            <th>Культура</th>
+
+            <th>За день, га</th>
+            <th> С начала операции, га</th>
+
+            <th>Вал за день, ц</th>
+            <th>Вал с начала, ц</th>
+            
+             
         </tr>
     </thead>
     <tbody>
-        {% for record in records %}
+        {% for row in grouped_records %}
         <tr>
-            <td>
-                <input type="text" name="entity" value="{{ record.entity }}" class="table-input">
-            </td>
-            <td>
-                <input type="text" name="text" value="{{ record.text }}" class="table-input">
-            </td>
-            <td>
-                <input type="number" name="start" value="{{ record.start }}" class="table-input">
-            </td>
-            <td>
-                <input type="number" name="end" value="{{ record.end }}" class="table-input">
-            </td>
+            <td>{{ row.DATE }}</td>
+            <td>{{ row.DEPARTMENT }}</td>
+            <td>{{ row.OPERATION }}</td>
+
+            <td>{{ row.CROP }}</td>
+            <!--- <td>{{ row.HECTARE }}</td> --->
+            
+            <td>{{ row.HECTARE }}</td>
+            <td>{{ row.TOTAL_HECTARE }}</td>
+
+            <!-- <td>{{ row.SUBUNIT }}</td> --->
+
+            <td>{{ row.DAY_YIELD }}</td>
+            <td>{{ row.YIELD_TOTAL }}</td>
+            
+
+            
+
+            
+
+            
         </tr>
         {% endfor %}
     </tbody>
 </table>
+

@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from . import servises
+
 
 def render_main_menu(request):
     """
@@ -12,3 +14,7 @@ def table_menu(request):
         {'entity': 'Пример 2', 'text': 'Текст 2', 'start': 2, 'end': 3},
     ]
     return render(request, 'table.html', {'records': records})
+
+def model_tables(request):
+    grouped_records = servises.date_model()
+    return render(request, 'table.html', {'grouped_records': grouped_records})
