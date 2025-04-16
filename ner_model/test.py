@@ -161,7 +161,6 @@ def predict_entities(text):
 
     return merged_entities
 
-import re
 
 def process_subunit_and_hectare(entities):
     hectare_values = []
@@ -247,8 +246,6 @@ def process_department(entities):
                 entity['text'] = "АОР"
     return entities
 
-
-import re
 
 def process_yield_total(entities):
     """
@@ -392,8 +389,35 @@ def split_operations(input_file_path, output_file_name="Таблица_разб�
 
     print(f"Обработка завершена. Результаты сохранены в файл: {output_file_name}")
 
-if __name__ == "__main__":# output_file_name = "Таблица (полевые работы).xlsx"
-    # process_file_txt("message.txt", "Таблица.txt")
-    # split_operations("Таблица.txt", "Таблица_разбитая.txt")
-    process_file("Таблица_разбитая.txt", "Таблица (полевые работы).xlsx")
 
+def remove_rows_without_operation_or_crop(file_name="Таблица (полевые работы).xlsx"):
+    if not os.path.exists(file_name):
+        raise FileNotFoundError(f"Файл {file_name} не найден.")
+
+    workbook = load_workbook(file_name)
+    sheet = workbook.active
+
+    headers = [cell.value for cell in sheet[1]]
+    operation_col_index = headers.index("Операция") + 1
+    crop_col_index = headers.index("Культура") + 1
+
+    rows_to_delete = []
+
+    for row_idx, row in enumerate(sheet.iter_rows(min_row=2, values_only=False), start=2):
+        operation_value = row[operation_col_index - 1].value
+        crop_value = row[crop_col_index - 1].value
+
+        if not operation_value or not crop_value:
+            rows_to_delete.append(row_idx)
+
+    for row_idx in reversed(rows_to_delete):
+        sheet.delete_rows(row_idx)
+
+    workbook.save(file_name)
+
+
+if __name__ == "__main__":# output_file_name = "Таблица (полевые работы).xlsx"
+    process_file_txt("message.txt", "Таблица.txt")
+    split_operations("Таблица.txt", "Таблица_разбитая.txt")
+    process_file("Таблица_разбитая.txt", "Таблица (полевые работы).xlsx")
+    remove_rows_without_operation_or_crop("Таблица (полевые работы).xlsx")
