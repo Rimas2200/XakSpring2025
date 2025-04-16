@@ -161,33 +161,30 @@ def predict_entities(text):
 
     return merged_entities
 
+import re
+
 def process_subunit_and_hectare(entities):
-    subunit_value = None
     hectare_values = []
+
+    for entity in entities:
+        key = entity['entity'].upper()
+        if key == "HECTARE":
+            match = re.search(r'(\d+)', entity['text'])
+            if match:
+                hectare_values.append(int(match.group(1)))
 
     for entity in entities:
         key = entity['entity'].upper()
         if key == "SUBUNIT":
             subunit_value = entity['text']
-        elif key == "HECTARE":
-            match = re.search(r'(\d+)', entity['text'])
+            match = re.search(r'по\s*пу\s*(\d+)/(\d+)', subunit_value, re.IGNORECASE)
             if match:
-                hectare_values.append(int(match.group(1)))
-                print("===========================")
-    entities = [e for e in entities if e['entity'].upper() not in ["SUBUNIT", "HECTARE"]]
+                part1, part2 = int(match.group(1)), int(match.group(2))
+                entities = [e for e in entities if e['entity'].upper() != "SUBUNIT"]
+                entities.append({"entity": "HECTARE", "text": str(part1)})
+                entities.append({"entity": "SUBUNIT", "text": str(part2)})
+                break
 
-    if subunit_value and "по пу" in subunit_value.lower():
-        match = re.search(r'(\d+)/(\d+)', subunit_value)
-        if match:
-            part1, part2 = int(match.group(1)), int(match.group(2))
-            smaller = min(part1, part2)
-            larger = max(part1, part2)
-            entities.append({"entity": "HECTARE", "text": str(smaller)})
-            entities.append({"entity": "SUBUNIT", "text": str(larger)})
-        else:
-            print(f"Ошибка: Не удалось найти числа в строке '{subunit_value}'.")
-
-    print(hectare_values)
     if len(hectare_values) >= 1:
         smaller = min(hectare_values)
         larger = max(hectare_values)
@@ -219,7 +216,7 @@ def group_entities_by_operation(entities):
             current_group[key] = entity['text']
         elif key in ["DATE", "DEPARTMENT"]:
             global_data[key] = entity['text']
-        elif key in ["CROP", "HECTARE", "SUBUNIT", "YIELD_TOTAL"]:
+        elif key in ["CROP", "HECTARE", "SUBUNIT", "YIELD_TOTAL", "YIELD_TOTAL_TOTAL"]:
             current_group[key] = entity['text']
 
     if current_group:
@@ -229,7 +226,6 @@ def group_entities_by_operation(entities):
         group.update(global_data)
 
     return grouped_data
-
 
 def process_department(entities):
     """
@@ -252,17 +248,26 @@ def process_department(entities):
     return entities
 
 
+import re
+
 def process_yield_total(entities):
     """
-    Обрабатывает значение YIELD_TOTAL
+    Обрабатывает значение YIELD_TOTAL.
+    Если значение содержит два числа через слеш, разделяет их на два поля:
+    - YIELD_TOTAL_DAY (первое число)
+    - YIELD_TOTAL_TOTAL (второе число).
+    Если значение содержит одно число, оно записывается только в YIELD_TOTAL_DAY.
     """
     for entity in entities:
         key = entity['entity'].upper()
         if key == "YIELD_TOTAL":
             yield_total_value = entity['text']
-            match = re.search(r'(\d+)', yield_total_value)
-            if match:
-                entity['text'] = match.group(1)
+            matches = re.findall(r'\d+', yield_total_value)
+            if len(matches) == 2:
+                entity['text'] = matches[0]
+                entities.append({'entity': 'YIELD_TOTAL_TOTAL', 'text': matches[1]})
+            elif len(matches) == 1:
+                entity['text'] = matches[0]
     return entities
 
 
@@ -288,6 +293,7 @@ def write_to_excel(entities, file_name="Таблица (полевые рабо�
         "HECTARE": "За день, га",
         "SUBUNIT": "С начала операции, га",
         "YIELD_TOTAL": "Вал за день, ц",
+        "YIELD_TOTAL_TOTAL": "Вал с начала, ц"
     }
 
     grouped_data = group_entities_by_operation(entities)
@@ -301,26 +307,93 @@ def write_to_excel(entities, file_name="Таблица (полевые рабо�
         sheet.append([row_data[header] for header in headers])
     workbook.save(file_name)
 
+def process_file(input_file_path, output_file_name="Таблица (полевые работы).xlsx"):
+    """
+    Обрабатывает файл построчно и записывает результаты в Excel.
+    :param input_file_path: Путь к входному текстовому файлу.
+    :param output_file_name: Имя выходного Excel-файла.
+    """
 
-# if __name__ == "__main__":
-# example_text = "Уборка Соя товарная (семенной) Отд 11 65/65 Вал 58720 Урож 9"
-# example_text = "Пахота под Соя товарная: День - 295 га От начала - 6804 га (79%) Остаток- 1774 га, ЮГ"
-# example_text = "14.04 Предпосевная культивация под Пшеница озимая По ПУ 146/1217 Отд 11 146/233"
-# example_text = "16.11 Мир Пахота под Кукуруза товарная 30 га, 699 га, 89%, 73 га остаток."
-# example_text = "16.11 Мир Пахота под Соя товарная 30 га, 779 га, Работало 2 агрегата."
-example_text = "15.10 Пахота под сах св По Пу 88/329 Отд 11 23/60 Отд 12 34/204 Отд 16 31/65"
-# example_text = "15.10 2-е диск под сах св По Пу 112/817 Отд 16 112/594"
-print(example_text)
-entities = preprocess_with_t5(example_text)
-print(entities)
-entities = predict_entities(entities)
-print(entities)
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
 
-# print("Текст:", example_text)
-# print("Извлеченные сущности:")
-# for entity in entities:
-#     print(f"- {entity['entity']}: '{entity['text']}'")
-entities = process_subunit_and_hectare(entities)
-entities = process_department(entities)
-entities = process_yield_total(entities)
-write_to_excel(entities)
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+
+        print(f"Обработка строки: {line}")
+
+        transformed_text = preprocess_with_t5(line)
+        print(f"Трансформированный текст: {transformed_text}")
+
+        entities = predict_entities(transformed_text)
+        print(f"Извлеченные сущности: {entities}")
+
+        entities = process_subunit_and_hectare(entities)
+        entities = process_department(entities)
+        entities = process_yield_total(entities)
+
+        write_to_excel(entities, output_file_name)
+
+
+def process_file_txt(input_file_path, output_file_name="Таблица.txt"):
+    """
+    Обрабатывает файл построчно и записывает результаты в txt.
+    :param input_file_path: Путь к входному текстовому файлу.
+    :param output_file_name: Имя выходного txt-файла.
+    """
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+
+    with open(output_file_name, 'w', encoding='utf-8') as output_file:
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+            transformed_text = preprocess_with_t5(line)
+            output_file.write(f"{transformed_text}\n")
+
+    print(f"Обработка завершена. Результаты сохранены в файл: {output_file_name}")
+
+def split_operations(input_file_path, output_file_name="Таблица_разбитая.txt"):
+    """
+    Разделяет строки из входного файла на отдельные операции и записывает их в выходной файл.
+    :param input_file_path: Путь к входному текстовому файлу.
+    :param output_file_name: Имя выходного txt-файла.
+    """
+    with open(input_file_path, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+
+    with open(output_file_name, 'w', encoding='utf-8') as output_file:
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+
+            date_match = re.match(r"\d{2}\.\d{2}", line)
+            if date_match:
+                date = date_match.group(0)
+                rest_of_line = line[len(date):].strip()
+            else:
+                date = ""
+                rest_of_line = line
+
+            key_words = re.findall(r"(АОР|ТСК|АО Кропоткинское|Восход|Колхоз Прогресс|Мир|СП Коломейцево)", rest_of_line)
+            key_word = key_words[0] if key_words else ""
+
+            rest_of_line = re.sub(r"(АОР|ТСК|АО Кропоткинское|Восход|Колхоз Прогресс|Мир|СП Коломейцево)", "", rest_of_line).strip()
+
+            operations = re.split(r"(?=Пахота|Выравнивание|Сев|Культивация|Подкормка|Внесение|Уборка|Предпосевная|Чизлевание|Химпрополка|Первая|Сплошная|2-е)", rest_of_line)
+
+            for operation in operations:
+                if operation.strip():
+                    output_file.write(f"{date} {key_word} {operation.strip()}\n")
+
+    print(f"Обработка завершена. Результаты сохранены в файл: {output_file_name}")
+
+if __name__ == "__main__":# output_file_name = "Таблица (полевые работы).xlsx"
+    # process_file_txt("message.txt", "Таблица.txt")
+    # split_operations("Таблица.txt", "Таблица_разбитая.txt")
+    process_file("Таблица_разбитая.txt", "Таблица (полевые работы).xlsx")
+
