@@ -8,13 +8,39 @@ import time
 import os
 import re
 
-# Путь к сохранённому профилю
+
+def transform_area_format(text):
+    def replace_match(match):
+        parts = match.group(0)
+        numbers = re.findall(r'\d+', parts)
+        result = []
+        for i, num in enumerate(numbers):
+            if i < len(numbers) - 1 or "га" in parts:
+                result.append(f"{num} га")
+            else:
+                result.append(num)
+        return " ".join(result)
+
+    area_pattern = r'\d+/\d+га\d*|\d+/\d+га|\d+га'
+    return re.sub(area_pattern, replace_match, text)
+
+
+def clean_text(text):
+    text = re.sub(r'\b(\d{1,2})\.(\d{1,2})\.(\d{2,4})(г\b)?', r'\1<DOT>\2<DOT>\3\4', text)
+    text = re.sub(r'\b(\d{1,2})\.(\d{1,2})\b(?!\.\d{2,4})', r'\1<DOT>\2', text)
+    text = re.sub(r'(\d)-([a-zA-Zа-яА-Я])', r'\1<SAFE_HYPHEN>\2', text)
+    text = re.sub(r'(?<=\d)/(?=\d)', r'<SAFE_SLASH>', text)
+    text = re.sub(r'[^\w\s<SAFE_HYPHEN><DOT>]', ' ', text)
+    text = text.replace('<SAFE_HYPHEN>', '-').replace('<DOT>', '.').replace('<SAFE_SLASH>', '/')
+    text = re.sub(r'(?i)\bпопу\b', 'По Пу', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+
 profile_path = os.path.join(os.getcwd(), "chrome_profile")
 
-# Настройка драйвера
 service = Service(ChromeDriverManager().install())
 FIXED_USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-
 options = webdriver.ChromeOptions()
 options.add_argument(f"user-agent={FIXED_USER_AGENT}")
 options.add_argument("--start-maximized")
@@ -22,9 +48,7 @@ options.add_argument(f"--user-data-dir={profile_path}")
 
 driver = webdriver.Chrome(service=service, options=options)
 driver.get("https://web.whatsapp.com")
-print("Если это первый запуск, отсканируйте QR-код. В последующих запусках авторизация будет сохранена.")
 
-# Ожидание авторизации
 try:
     WebDriverWait(driver, 30).until(
         EC.presence_of_element_located((By.XPATH, '//div[@role="listitem"]'))
@@ -45,7 +69,6 @@ try:
 except Exception as e:
     raise Exception(f"Чат с {contact_name} не найден. {str(e)}")
 
-# Ожидание появления контейнера чата
 try:
     chat_container = WebDriverWait(driver, 10).until(
         EC.presence_of_element_located((By.XPATH, '//div[contains(@class, "copyable-area")]'))
@@ -55,7 +78,6 @@ except Exception as e:
     driver.quit()
     exit()
 
-# Прокрутка вверх для загрузки истории (через раз работает(лучше руками))
 old_message_count = 0
 while True:
     messages = driver.find_elements(By.XPATH, '//div[contains(@class, "copyable-text")]')
@@ -66,22 +88,21 @@ while True:
     driver.execute_script("arguments[0].scrollTop = 0;", chat_container)
     time.sleep(2)
 
-# Регулярки
 pre_text_pattern = re.compile(r"\[(\d{1,2}:\d{2}), (\d{1,2}\.\d{1,2}\.\d{4})] (.*?):")
-
 quote_text_pattern = re.compile(r'^\[\d{1,2}:\d{2}, \d{2}\.\d{2}\.\d{4}] .+?:')
 
-# Слова для фильтра
-filter_words = ["попу", "аор", "тск", "мир", "восход", "ао кропоткинское",
-                "колхоз прогресс", "сп коломейцево", "пу", "отд"]
+filter_words = [
+    "попу", "аор", "тск", "мир", "восход", "ао кропоткинское",
+    "колхоз прогресс", "сп коломейцево", "пу", "отд"
+]
 
-# Сбор сообщений
+date_pattern = re.compile(r'\b\d{1,2}\.\d{1,2}(?:\.\d{2,4})?\b')
+
 messages = driver.find_elements(By.XPATH, '//div[contains(@class, "copyable-text")]')
 print(f"\nНайдено сообщений: {len(messages)}\n")
 
 filtered_count = 0
 for msg in messages:
-    # Убираем цитаты (DOM)
     try:
         msg.find_element(By.XPATH, './/div[contains(@data-testid, "quoted-message")]')
         continue
@@ -91,14 +112,12 @@ for msg in messages:
     msg_text = msg.text.strip()
     lines = msg_text.splitlines()
 
-    # Убираем ручные цитаты
     if len(lines) >= 2 and lines[0].strip() == "Вы" and re.match(r'^\d{1,2}\.\d{1,2}$', lines[1].strip()):
         continue
 
     if any(quote_text_pattern.match(line.strip()) for line in lines):
         continue
 
-    # Проверка слов
     msg_text_lower = msg_text.lower()
     if any(re.search(rf"\b{re.escape(word)}\b", msg_text_lower) for word in filter_words):
         pre_text = msg.get_attribute("data-pre-plain-text")
@@ -111,7 +130,32 @@ for msg in messages:
                 sender = match.group(3)
 
         filtered_count += 1
-        print(f"{filtered_count}. Отправитель: {sender}\nДата: {date_str} {time_str}\nСообщение:\n{msg_text}\n")
+
+        msg_single_line = " ".join(msg_text.splitlines())
+        msg_single_line = clean_text(msg_single_line)
+
+        msg_single_line = transform_area_format(msg_single_line)
+
+        found_date = date_pattern.search(msg_single_line)
+        if found_date:
+            message_date = found_date.group(0)
+            msg_single_line = msg_single_line.replace(message_date, '').strip()
+        else:
+            message_date = "17.04"
+
+        match = re.match(rf'^(({re.escape(message_date)}\s+)+)', msg_single_line)
+        if match:
+            new_message = msg_single_line[match.end():].lstrip()
+            output_line = f"{message_date} {new_message}"
+        else:
+            output_line = f"{message_date} {msg_single_line}"
+
+        try:
+            with open('message.txt', 'a', encoding='utf-8') as file:
+                file.write(f"{output_line}\n")
+                print(f"{filtered_count}. Отправитель: {sender} | Дата: {date_str} {time_str} | Дата из сообщения: {message_date}| Сообщение: {msg_single_line}")
+        except FileNotFoundError as e:
+            print(e)
 
 if filtered_count == 0:
     print("Сообщения, содержащие заданные слова, не найдены.")
