@@ -1,103 +1,80 @@
-// Функции для работы с модальным окном
-function showExportModal() {
-    document.getElementById('exportModal').style.display = 'block';
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const exportBtn = document.getElementById('exportBtn');
+    const exportModal = document.getElementById('exportModal');
+    const closeModal = document.getElementById('closeModal');
+    const wordExportBtn = document.getElementById('wordExportBtn');
+    const excelExportBtn = document.getElementById('excelExportBtn');
 
-function hideExportModal() {
-    document.getElementById('exportModal').style.display = 'none';
-}
+    // Открываем модальное окно при клике на кнопку "Выгрузить"
+    exportBtn.addEventListener('click', () => {
+        console.log('Кнопка "Выгрузить" нажата');
+        exportModal.style.display = 'block';
+    });
 
-// Закрытие при клике вне модального окна
-window.onclick = function(event) {
-    const modal = document.getElementById('exportModal');
-    if (event.target == modal) {
-        hideExportModal();
+    // Закрываем модальное окно при клике на крестик
+    closeModal.addEventListener('click', () => {
+        console.log('Модальное окно закрыто');
+        exportModal.style.display = 'none';
+    });
+
+    // Обработка выбора формата экспорта
+    wordExportBtn.addEventListener('click', () => {
+        console.log('Выбран экспорт в Word');
+        exportToWord();
+        exportModal.style.display = 'none';
+    });
+
+    excelExportBtn.addEventListener('click', () => {
+        console.log('Выбран экспорт в Excel');
+        exportToExcel();
+        exportModal.style.display = 'none';
+    });
+
+    // Функция экспорта в Word
+    function exportToWord() {
+        const table = document.querySelector('.custom-table');
+        const rows = Array.from(table.querySelectorAll('tr'));
+
+        // Создаем массив данных
+        const data = [];
+        rows.forEach(row => {
+            const cells = Array.from(row.querySelectorAll('td'));
+            const rowData = cells.map(cell => cell.querySelector('input').value);
+            data.push(rowData);
+        });
+
+        // Создаем документ Word
+        const doc = new Document();
+        const tableRows = data.map(row => new TableRow(...row.map(cell => new TableCell(cell))));
+        doc.addSection({ children: [new Table(tableRows)] });
+
+        // Сохраняем файл
+        Packer.toBlob(doc).then(blob => {
+            saveAs(blob, 'data.docx');
+        });
     }
-}
 
-// Функция для получения данных таблицы
-function getTableData() {
-    const table = document.querySelector('.custom-table');
-    const headers = Array.from(table.querySelectorAll('th')).map(th => th.textContent.trim());
-    const rows = Array.from(table.querySelectorAll('tbody tr'));
-    
-    return {
-        headers: headers,
-        data: rows.map(row => {
-            const inputs = row.querySelectorAll('input');
-            return headers.reduce((obj, header, i) => {
-                obj[header] = inputs[i]?.value || '';
-                return obj;
-            }, {});
-        })
-    };
-}
+    // Функция экспорта в Excel
+    function exportToExcel() {
+        const table = document.querySelector('.custom-table');
+        const rows = Array.from(table.querySelectorAll('tr'));
 
-// Экспорт в Excel
-function exportToExcel() {
-    const { headers, data } = getTableData();
-    const ws = XLSX.utils.json_to_sheet(data, { header: headers });
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Данные");
-    XLSX.writeFile(wb, 'сельхоз_данные.xlsx');
-    hideExportModal();
-}
+        // Создаем массив данных
+        const data = [['Дата', 'Подразделение', 'Операция', 'Культура', 'За день, га', 'С начала операции, га', 'Вал за день, ц', 'Вал с начала, ц']];
+        rows.forEach(row => {
+            const cells = Array.from(row.querySelectorAll('td'));
+            const rowData = cells.map(cell => cell.querySelector('input')?.value || '');
+            if (rowData.some(value => value)) { // Добавляем только строки с данными
+                data.push(rowData);
+            }
+        });
 
-// Экспорт в Word
-function exportToWord() {
-    const { headers, data } = getTableData();
-    const { Document, Paragraph, Table, TableRow, TableCell, HeadingLevel } = docx;
-    
-    // Создаем строки таблицы для Word
-    const wordRows = [
-        new TableRow({
-            children: headers.map(header => 
-                new TableCell({
-                    children: [new Paragraph(header)],
-                    shading: {
-                        fill: "DDDDDD"
-                    }
-                })
-            )
-        }),
-        ...data.map(row => 
-            new TableRow({
-                children: headers.map(header => 
-                    new TableCell({
-                        children: [new Paragraph(row[header] || '')]
-                    })
-                )
-            })
-        )
-    ];
-    
-    // Создаем документ Word
-    const doc = new Document({
-        sections: [{
-            children: [
-                new Paragraph({
-                    text: "Сельскохозяйственные данные",
-                    heading: HeadingLevel.HEADING_1
-                }),
-                new Table({
-                    rows: wordRows,
-                    width: {
-                        size: 100,
-                        type: "PERCENTAGE"
-                    }
-                })
-            ]
-        }]
-    });
-    
-    // Генерируем и скачиваем файл
-    docx.Packer.toBlob(doc).then(blob => {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = 'сельхоз_данные.docx';
-        link.click();
-        URL.revokeObjectURL(url);
-        hideExportModal();
-    });
-}
+        // Создаем объект Workbook
+        const workbook = XLSX.utils.book_new();
+        const worksheet = XLSX.utils.aoa_to_sheet(data);
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+        // Сохраняем файл
+        XLSX.writeFile(workbook, 'data.xlsx');
+    }
+});

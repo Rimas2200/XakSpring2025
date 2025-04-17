@@ -37,13 +37,13 @@ def clean_text(text):
 
     
 
-def date_model() -> list:
+def date_model(date_form: int) -> list:
     
     
     last_process = []
 
     # Получаем данные из базы данных
-    message_database: dict = models.SavesTgMessages.objects.order_by('-id')[:2] # randint(1,100)
+    message_database: dict = models.SavesTgMessages.objects.order_by('-id')[:int(date_form)] # randint(1,100)
     for mess in tqdm(message_database):
         group_filter_test = []
         second_lsist = []

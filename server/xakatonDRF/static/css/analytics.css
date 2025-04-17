@@ -1,0 +1,64 @@
+/* analytics.css - Стили для страницы аналитики */
+
+.analytics-container {
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f9;
+}
+
+.analytics-container h1 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.chart-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    height: 800px;
+}
+
+.summary {
+    width: 25%;
+    min-width: 200px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow-y: auto;
+}
+
+.chart {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+
+.summary h2 {
+    margin-top: 0;
+    color: #34495e;
+    font-size: 1.5rem;
+}
+
+.summary p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* Адаптивные стили для аналитики */
+@media (max-width: 768px) {
+    .chart-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .summary {
+        width: 100%;
+    }
+}

@@ -2,7 +2,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.render_main_menu, name='menu'),  # Главная страница с меню
-    path('table/', views.table_menu, name='table_menu'),  # Страница с таблицей
-    path('model_tables/', views.model_tables, name='model_tables'),  # Страница с таблицами
+    path('', views.render_main_menu, name='menu'),
+    path('table_clear/', views.table_menu, name='table_menu'),
+    path('model_menu/', views.models_menu, name='model_menu'),
+    path('process/telegram', views.process_telegram, name='process_telegram'),
+    path('process/whatsapp', views.process_whatsapp, name='process_whatsapp'),
+
 ]

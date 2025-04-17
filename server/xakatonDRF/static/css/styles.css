@@ -182,7 +182,6 @@ body {
   box-shadow: var(--shadow);
   margin-bottom: 30px;
 }
-
 .custom-table {
   width: 100%;
   border-collapse: collapse;
@@ -199,6 +198,24 @@ body {
 .custom-table th {
   background-color: #f8f9fa;
   font-weight: bold;
+}
+
+.custom-table tbody tr {
+  display: table-row; /* Убедитесь, что строки отображаются */
+}
+
+.custom-table tbody td {
+  border: 1px solid #ccc; /* Убедитесь, что границы ячеек видны */
+}
+
+/* Стили для полей ввода */
+.custom-table input {
+  width: 100%; /* Занимает всю ширину ячейки */
+  height: 30px; /* Высота поля ввода */
+  border: 1px solid #ccc; /* Граница */
+  padding: 5px; /* Отступы внутри поля */
+  box-sizing: border-box; /* Включает границы в общую ширину */
+  font-size: 14px; /* Размер шрифта */
 }
 
 .table-input {
@@ -374,4 +391,16 @@ body {
     padding: 8px 15px;
     font-size: 0.9em;
   }
+}
+/* Стиль для кнопки "Добавить строку" */
+.footer-buttons .btn-success {
+  background-color: #28a745; /* Зелёный цвет */
+  border: none;
+  color: white;
+}
+
+.footer-buttons .btn-success:hover {
+  background-color: #218838; /* Темно-зелёный при наведении */
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }

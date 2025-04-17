@@ -7,6 +7,7 @@
     <title>{% block title %}Панель управления{% endblock %}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block extra_head %}{% endblock %}
 </head>
 <body>
     <!-- Верхняя панель -->
@@ -23,19 +24,21 @@
         <h2>Главное Меню</h2>
         <ul>
             <li><a href="/"><i class="fas fa-home"></i> <span>Главная</span></a></li>
-            <li><a href="table"><i class="fas fa-table"></i> <span>Таблица данных</span></a></li>
-            <li><a href="model_tables"><i class="fas fa-table"></i> <span>Активировать модель</span></a></li>
+            <li><a href="/table_clear"><i class="fas fa-table"></i> <span>Таблица данных</span></a></li>
+            <li><a href="/model_menu"><i class="fas fa-table"></i> <span>Обработка моделью</span></a></li>
         </ul>
     </div>
 
     <!-- Основной контент -->
     <div class="content" id="content">
         {% block content %}
-        {% include "partials/analiticts_content.html" %}
         {% endblock %}
-    
     </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="{% static 'js/script.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
 </body>
 </html>

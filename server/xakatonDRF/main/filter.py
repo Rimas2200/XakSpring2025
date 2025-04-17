@@ -1,6 +1,30 @@
 import datetime
 import re
 from tqdm import tqdm
+
+def clean_text(text):
+    # Защищаем даты: ДД.ММ.ГГГГ и ДД.ММ.ГГ
+    text = re.sub(r'\b(\d{1,2})\.(\d{1,2})\.(\d{2,4})\b', r'\1<DOT>\2<DOT>\3', text)
+    # Защищаем даты: ДД.ММ (без года)
+    text = re.sub(r'\b(\d{1,2})\.(\d{1,2})\b', r'\1<DOT>\2', text)
+    # Защищаем дефисы между цифрой и буквой
+    text = re.sub(r'(\d)-([a-zA-Zа-яА-Я])', r'\1<SAFE_HYPHEN>\2', text)
+    # Защищаем слэш между цифрами (например, для дробей или дат)
+    text = re.sub(r'(?<=\d)/(?=\d)', r'<SAFE_SLASH>', text)
+
+    # Заменяем все неразрешённые символы на пробел
+    text = re.sub(r'[^\w\s<SAFE_HYPHEN><DOT>]', ' ', text)
+
+    # Восстанавливаем дефисы, точки и слэш
+    text = text.replace('<SAFE_HYPHEN>', '-').replace('<DOT>', '.').replace('<SAFE_SLASH>', '/')
+
+    # Замена вхождения "попу" в любом регистре на "По Пу"
+    text = re.sub(r'(?i)\bпопу\b', 'По Пу', text)
+
+    # Удаляем лишние пробелы
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
 def format_to_single_line(data :str) -> str:
     # Удаляем лишние пробелы и переносы строк
     lines = data.splitlines()
