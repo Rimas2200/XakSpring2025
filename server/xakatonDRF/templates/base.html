@@ -31,7 +31,9 @@
     <!-- Основной контент -->
     <div class="content" id="content">
         {% block content %}
+        {% include "partials/analiticts_content.html" %}
         {% endblock %}
+    
     </div>
 
     <script src="{% static 'js/script.js' %}"></script>
