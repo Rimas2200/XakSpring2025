@@ -293,8 +293,6 @@ def process_department(entities):
     return entities
 
 
-import re
-
 def process_yield_total(entities):
     """
     Обрабатывает значение YIELD_TOTAL.

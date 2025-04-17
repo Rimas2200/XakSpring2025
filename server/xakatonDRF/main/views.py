@@ -21,11 +21,10 @@ def models_menu(request):
 def process_whatsapp(request):
     if request.method == 'POST':
         whatsapp_chat_name = request.POST.get('whatsapp_chat_name')
-        # Здесь можно добавить логику обработки данных из WhatsApp
-        print(f"Processing chat '{whatsapp_chat_name}' from WhatsApp")
-        # После обработки перенаправляем на страницу с таблицей
-        return redirect('table')  # Перенаправляем на страницу с таблицей
+        grouped_records = servises.whatsapp_model(whatsapp_chat_name)
 
+        return render(request, 'table.html', {'grouped_records': grouped_records})
+    
     return HttpResponse("Invalid request")
 
 

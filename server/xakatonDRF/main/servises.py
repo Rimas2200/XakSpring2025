@@ -2,13 +2,20 @@ from ner_model import test
 from connectionsbottg import models
 from . import filter
 from pprint import pprint
-from datetime import datetime
-from . import models as main_models
-from random import randint
 import re
-from . import backup
-
+from . import whatsapp
 from tqdm import tqdm
+import time
+import os
+
+
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC 
+
 
 def clean_text(text):
     # Защищаем даты: ДД.ММ.ГГГГ и ДД.ММ.ГГ
@@ -44,6 +51,7 @@ def date_model(date_form: int) -> list:
 
     # Получаем данные из базы данных
     message_database: dict = models.SavesTgMessages.objects.order_by('-id')[:int(date_form)] # randint(1,100)
+
     for mess in tqdm(message_database):
         group_filter_test = []
         second_lsist = []
@@ -65,13 +73,8 @@ def date_model(date_form: int) -> list:
         # очистка от пустых строк
         filtered_operations = [item for item in operations if item.strip()]
         
-        # повторная обработка моделью t5
-        for items in tqdm(filtered_operations):
-            repit_until = test.preprocess_with_t5(items)
-            repit_update.append(repit_until)
-        
         # Вторичная обработка моделью
-        for entits in tqdm(repit_update):
+        for entits in tqdm(filtered_operations):
             secondaryprocessing = test.predict_entities(entits)
             second_lsist.append(secondaryprocessing)
         # разделение на блоки 
@@ -94,8 +97,83 @@ def date_model(date_form: int) -> list:
 
     return last_process
     
-    
 
+def whatsapp_model(chat_name: str) -> list:
+
+    driver = whatsapp.setup_driver()
+    driver.get("https://web.whatsapp.com")
+    whatsapp.wait_for_chat_load(driver)
+    whatsapp.open_chat(driver, chat_name)
+    whatsapp.scroll_to_top(driver)
+    filter_words = [
+        "попу", "аор", "тск", "мир", "восход", "ао кропоткинское",
+        "колхоз прогресс", "сп коломейцево", "пу", "отд"
+    ]
+
+    result_parese = whatsapp.process_messages(driver, filter_words)
+    driver.quit()
+
+    #pprint(result_parese)
+    # result_first_process = []
+    
+    last_process = []
+    counter = 0
+    
+    for message in result_parese:
+
+        group_message_ = []
+        repit_result_first_process = []
+        result_second_process = []
+
+        primaryprocessing = test.preprocess_with_t5(message)
+        print("Первичная обработка")
+        pprint(primaryprocessing)
+        print('-----------------------------------------------------------')
+        operations = re.split(r"(?=Пахота|Выравнивание|Сев|Культивация|Подкормка|Внесение|Уборка|Предпосевная|Чизлевание|Химпрополка|Первая|Сплошная|2-е|Диск)", primaryprocessing)
+        print("обработка после операций")
+        pprint(operations)
+        print('-----------------------------------------------------------')
+        filtered_operations = [item for item in operations if item.strip()]
+        print('filter обработка после операций t5')
+        pprint(filtered_operations)
+        print('-----------------------------------------------------------')
+    
+        for entits in filtered_operations:
+            secondaryprocessing = test.predict_entities(entits)
+            result_second_process.append(secondaryprocessing.extend())
+        print(' первичная обработка неиро')
+        pprint(result_second_process)
+        print('-----------------------------------------------------------')
+         # разделение на блоки 
+        for date_items in tqdm(result_second_process):
+            entities = test.process_subunit_and_hectare(date_items)
+            entities = test.process_department(entities)
+            entities = test.process_yield_total(entities)
+            group = test.group_entities_by_operation(entities)
+            group_message_.append(group)
+            
+            print('разделение на блоки')
+            pprint(group)
+            print('-----------------------------------------------------------')
+        # проверка на пустыесписки 
+        for item_filter_2 in tqdm(group_message_):
+            if item_filter_2:
+                if len(item_filter_2) == 1:
+                # Если в item_filter_2 один элемент, добавляем его
+                    last_process.append(item_filter_2[0])
+                else:
+                # Если несколько элементов, используем extend()
+                    last_process.extend(item_filter_2)
+
+        
+
+        counter += 1
+        print(f"Обработано сообщений: {counter}")
+        
+    
+    return last_process
+
+    
 
 
 

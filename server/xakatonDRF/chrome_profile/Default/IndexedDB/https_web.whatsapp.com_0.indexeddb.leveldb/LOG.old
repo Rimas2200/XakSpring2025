@@ -1,0 +1,25 @@
+2025/04/18-02:34:16.507 5af4 Reusing MANIFEST F:\PRODJECTS_TO_GIT\XakSpring2025\server\xakatonDRF\chrome_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2025/04/18-02:34:16.508 5af4 Recovering log #284
+2025/04/18-02:34:16.512 5af4 Reusing old log F:\PRODJECTS_TO_GIT\XakSpring2025\server\xakatonDRF\chrome_profile\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000284.log 
+2025/04/18-02:34:16.512 5af4 Delete type=2 #283
+2025/04/18-02:34:17.810 4424 Level-0 table #289: started
+2025/04/18-02:34:17.814 4424 Level-0 table #289: 99302 bytes OK
+2025/04/18-02:34:17.815 4424 Delete type=0 #284
+2025/04/18-02:34:17.815 4424 Manual compaction at level-0 from '\x00m\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00n\x00\x00\x00' @ 0 : 0; will stop at '\x00n\x00\x00\x05' @ 173222 : 1
+2025/04/18-02:34:17.816 4424 Compacting 1@0 + 1@1 files
+2025/04/18-02:34:17.869 4424 Generated table #290@0: 69986 keys, 1449723 bytes
+2025/04/18-02:34:17.869 4424 Compacted 1@0 + 1@1 files => 1449723 bytes
+2025/04/18-02:34:17.870 4424 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/04/18-02:34:17.870 4424 Delete type=2 #289
+2025/04/18-02:34:17.871 3808 Manual compaction at level-0 from '\x00n\x00\x00\x05' @ 173222 : 1 .. '\x00n\x00\x00\x00' @ 0 : 0; will stop at (end)
+2025/04/18-02:34:17.877 3808 Level-0 table #292: started
+2025/04/18-02:34:17.880 3808 Level-0 table #292: 435 bytes OK
+2025/04/18-02:34:17.881 3808 Delete type=2 #286
+2025/04/18-02:34:17.881 3808 Delete type=0 #288
+2025/04/18-02:34:17.882 3808 Manual compaction at level-0 from '\x00n\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00o\x00\x00\x00' @ 0 : 0; will stop at '\x00n\x00\x00\x05' @ 173255 : 0
+2025/04/18-02:34:17.882 3808 Compacting 1@0 + 1@1 files
+2025/04/18-02:34:17.935 3808 Generated table #293@0: 69984 keys, 1449699 bytes
+2025/04/18-02:34:17.935 3808 Compacted 1@0 + 1@1 files => 1449699 bytes
+2025/04/18-02:34:17.936 3808 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/04/18-02:34:17.937 3808 Delete type=2 #292
+2025/04/18-02:34:17.937 3808 Manual compaction at level-0 from '\x00n\x00\x00\x05' @ 173255 : 0 .. '\x00o\x00\x00\x00' @ 0 : 0; will stop at (end)

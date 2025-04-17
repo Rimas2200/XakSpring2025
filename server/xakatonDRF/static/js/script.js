@@ -141,6 +141,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Проверяем, что строка добавлена
     console.log("Текущее количество строк:", tableBody.children.length);
   });
+  document.addEventListener('click', (event) => {
+    if (event.target.classList.contains('delete-row-btn')) {
+        const row = event.target.closest('tr');
+        if (row) {
+            row.remove();
+        }
+    }
+  });
   document.addEventListener("keydown", (event) => {
     const currentInput = document.activeElement; // Текущее активное поле ввода
     if (!currentInput || !currentInput.classList.contains("table-input")) {
