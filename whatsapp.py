@@ -4,9 +4,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 import time
 import os
 import re
+from collections import defaultdict
+from datetime import datetime
+from docx import Document
 
 
 def transform_area_format(text):
@@ -15,26 +19,28 @@ def transform_area_format(text):
         numbers = re.findall(r'\d+', parts)
         result = []
         for i, num in enumerate(numbers):
-            if i < len(numbers) - 1 or "га" in parts:
+            if i < len(numbers) - 1 or parts.endswith('га'):
                 result.append(f"{num} га")
             else:
                 result.append(num)
         return " ".join(result)
 
-    area_pattern = r'\d+/\d+га\d*|\d+/\d+га|\d+га'
+    area_pattern = r"\d+/\d+га\d*|\d+/\d+га|\d+га"
     return re.sub(area_pattern, replace_match, text)
 
-
+  
 def clean_text(text):
-    text = re.sub(r'\b(\d{1,2})\.(\d{1,2})\.(\d{2,4})(г\b)?', r'\1<DOT>\2<DOT>\3\4', text)
+    text = re.sub(r'\b(\d{1,2})\.(\d{1,2})\.(\d{2,4})г?\b', r'\1<DOT>\2<DOT>\3', text)
     text = re.sub(r'\b(\d{1,2})\.(\d{1,2})\b(?!\.\d{2,4})', r'\1<DOT>\2', text)
     text = re.sub(r'(\d)-([a-zA-Zа-яА-Я])', r'\1<SAFE_HYPHEN>\2', text)
     text = re.sub(r'(?<=\d)/(?=\d)', r'<SAFE_SLASH>', text)
-    text = re.sub(r'[^\w\s<SAFE_HYPHEN><DOT>]', ' ', text)
+    text = re.sub(r'[^\w\s<SAFE_HYPHEN><DOT><SAFE_SLASH>]', ' ', text)
     text = text.replace('<SAFE_HYPHEN>', '-').replace('<DOT>', '.').replace('<SAFE_SLASH>', '/')
+
     text = re.sub(r'(?i)\bпопу\b', 'По Пу', text)
     return text
 
+    return re.sub(r'\s+', ' ', text).strip()
 
 def setup_driver():
     profile_path = os.path.join(os.getcwd(), "chrome_profile")
