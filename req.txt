@@ -84,3 +84,4 @@ websocket-client==1.8.0
 wsproto==1.2.0
 yarl==1.19.0
 protobuf==6.30.2
+docx-python==0.1.0
