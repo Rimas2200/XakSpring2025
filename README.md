@@ -22,17 +22,17 @@
 ```
 
 # [T5 Модель](https://huggingface.co/RimasZzz/agriculture_text_transform_model)
-## [Архитектура](model/agriculture_text_transform_model/config.json)
+## Архитектура
 <p align="center">
   <img src="./server/xakatonDRF/T5_model/assets/model_architecturejpg.jpg">
 </p>
 
-## [Обучение](model/train.py)
+## Обучение
 <p align="center">
   <img src="./server/xakatonDRF/T5_model/assets/trainLoss.jpg">
 </p>
 
-## [Примеры работы](model/test.py)
+## Примеры работы
 Source: `Пахота зяби под мн тр`<br>
 Result: `Пахота зяби под Многолетние травы`
 
@@ -48,18 +48,18 @@ Result: `Внесение минеральных удобрений под Пш�
 Source: `Прикат мн тр под оз пш`<br>
 Result: `Прикатывание посевов Многолетние травы под Пшеница озимая`
 
-# [ner Модель]()
-## [Архитектура]()
+# [ner Модель](https://huggingface.co/RimasZzz/agriculture_bert-base-multilingual-cased/blob)
+## Архитектура
 <p align="center">
   <img src="./server/xakatonDRF/ner_model/assets/model_architecturejpg.jpg">
 </p>
 
-## [Обучение]()
+## Обучение
 <p align="center">
   <img src="./server/xakatonDRF/ner_model/assets/trainLoss.jpg">
 </p>
 
-## [Примеры работы]()
+## Примеры работы
 Source: <br>
 ```Дискование 2-е под Ячмень озимый По ПУ 61/352 Отд 11 32/32 Отд 12 29/219```<br>
 Result:
