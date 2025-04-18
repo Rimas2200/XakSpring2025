@@ -1,0 +1,13 @@
+<!-- В папке templates/admin/base_site.html -->
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}"></a></h1>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="loading-container">
+    <div class="spinner"></div>
+    <p>Идет обработка данных, пожалуйста, подождите...</p>
+</div>
+
+<script>
+    const taskId = "{{ task_id }}";  // Получаем ID задачи из контекста Django
+    const checkTaskStatus = async () => {
+        const response = await fetch(`/check-task-status/?task_id=${taskId}`);
+        const data = await response.json();
+        
+        if (data.status === 'SUCCESS') {
+            // Если задача завершена, перенаправляем на страницу с таблицей
+            window.location.href = `/table?grouped_records=${encodeURIComponent(JSON.stringify(data.result))}`;
+        } else {
+            // Если задача ещё выполняется, проверяем снова через 2 секунды
+            setTimeout(checkTaskStatus, 2000);
+        }
+    };
+    checkTaskStatus();
+</script>
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/loading.css' %}">
+{% endblock %}

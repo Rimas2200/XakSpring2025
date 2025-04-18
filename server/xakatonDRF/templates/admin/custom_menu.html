@@ -1,0 +1,54 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/styletable.css' %}">
+
+<!-- Верхние кнопки -->
+<div class="header-buttons">
+    <button class="btn btn-primary">Получить данные из WhatsApp</button>
+    <button class="btn btn-success">Получить данные из Telegram</button>
+    <button class="btn btn-secondary">Настройка сбора сообщений</button>
+</div>
+
+<!-- Контейнер для таблицы -->
+<div class="content-wrapper">
+    <div class="inner-container">
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>Сущность</th>
+                    <th>Текст</th>
+                    <th>Начало</th>
+                    <th>Конец</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for record in records %}
+                <tr>
+                    <td>
+                        <input type="text" name="entity" value="{{ record.entity }}" class="table-input">
+                    </td>
+                    <td>
+                        <input type="text" name="text" value="{{ record.text }}" class="table-input">
+                    </td>
+                    <td>
+                        <input type="number" name="start" value="{{ record.start }}" class="table-input">
+                    </td>
+                    <td>
+                        <input type="number" name="end" value="{{ record.end }}" class="table-input">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Нижние кнопки -->
+<div class="footer-buttons">
+    <button class="btn btn-danger">Очистить</button>
+    <button class="btn btn-info">Выгрузить</button>
+    <button class="btn btn-secondary">Архивировать</button>
+</div>
+{% endblock %}

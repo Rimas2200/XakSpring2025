@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление таблицей</title>
+    <style>
+        /* Основной стиль для страницы */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa; /* Светлый фон */
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+            margin: 0;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .left {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* Стиль для поискового блока */
+        .search-box {
+            display: flex;
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:hover {
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none; /* Убираем обводку */
+            flex-grow: 1;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: #f3f4f6;
+        }
+
+        /* Стиль для кнопки поиска */
+        .search-box button {
+            background: #007bff; /* Цвет фона */
+            color: white; /* Цвет текста */
+            border: none; /* Убираем границу */
+            border-radius: 8px; /* Скругление углов */
+            padding: 12px 20px; /* Увеличиваем внутренние отступы */
+            cursor: pointer;
+            font-size: 18px; /* Увеличиваем размер шрифта */
+            transition: background-color 0.3s ease; /* Плавный переход */
+            outline: none; /* Убираем обводку */
+        }
+
+        .search-box button:hover {
+            background-color: #f9f9f9; /* Цвет при наведении */
+        }
+
+        .add-btn {
+            background: #0d88df;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            outline: none; /* Убираем обводку */
+        }
+
+        .add-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Таблица */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        table, th, td {
+            border: 1px solid #e0e0e0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #f1f1f1;
+            font-weight: bold;
+            color: #555;
+        }
+
+        td button {
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            background: #ffc107;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        td button:hover {
+            background-color: #e0a800;
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            .search-box {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .add-btn {
+                width: 100%;
+            }
+
+            table {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <!-- Поиск и кнопка "Добавить" -->
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Поиск">
+                <button onclick="searchRow()">🔍</button>
+                <button class="add-btn" onclick="addRow()">➕ Добавить</button>
+            </div>
+
+            <!-- Таблица -->
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>Подразделение</th>
+                        <th>Производственный участок (ПУ)</th>
+                        <th>№ Отделения</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Данные будут добавляться сюда -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const table = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
+
+        // Добавить строку
+        function addRow() {
+            const sub = prompt("Введите подразделение:");
+            const pu = prompt("Введите производственный участок (ПУ):");
+            const number = prompt("Введите № отделения:");
+
+            if (sub && pu && number) {
+                const newRow = table.insertRow();
+                newRow.innerHTML = `
+                    <td>${sub}</td>
+                    <td>${pu}</td>
+                    <td>${number}</td>
+                    <td>
+                        <button onclick="editSpecificRow(this)">✏️</button>
+                        <button onclick="deleteSpecificRow(this)">🗑️</button>
+                    </td>
+                `;
+            }
+        }
+
+        // Редактировать строку
+        function editSpecificRow(button) {
+            const row = button.parentElement.parentElement;
+            const sub = prompt("Изменить подразделение:", row.cells[0].textContent);
+            const pu = prompt("Изменить ПУ:", row.cells[1].textContent);
+            const number = prompt("Изменить № отделения:", row.cells[2].textContent);
+
+            if (sub && pu && number) {
+                row.cells[0].textContent = sub;
+                row.cells[1].textContent = pu;
+                row.cells[2].textContent = number;
+            }
+        }
+
+        // Удалить строку
+        function deleteSpecificRow(button) {
+            const row = button.parentElement.parentElement;
+            table.removeChild(row);
+        }
+
+        // Поиск по таблице
+        function searchRow() {
+            const term = document.getElementById("searchInput").value.toLowerCase();
+            const rows = table.getElementsByTagName("tr");
+
+            for (let row of rows) {
+                row.style.display = "none";
+                for (let cell of row.cells) {
+                    if (cell.textContent.toLowerCase().includes(term)) {
+                        row.style.display = "";
+                        break;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

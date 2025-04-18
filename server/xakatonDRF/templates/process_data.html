@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>Обработка данных</h1>
+
+    <!-- Форма для Telegram -->
+    <div class="form-container">
+        <h2>Telegram</h2>
+        <form method="post" action="{% url 'process_telegram' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="telegram_messages">Введите количество сообщений последних сообщений которое нужно обработать:</label>
+                <input type="number" id="telegram_messages" name="telegram_messages" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Обработать</button>
+        </form>
+    </div>
+
+    <!-- Форма для WhatsApp -->
+    <div class="form-container">
+        <h2>WhatsApp</h2>
+        <form method="post" action="{% url 'process_whatsapp' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="whatsapp_chat_name">Введите название чата:</label>
+                <input type="text" id="whatsapp_chat_name" name="whatsapp_chat_name" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Обработать</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+<script src="{% static 'js/export.js' %}"></script>
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/process_forms.css' %}">
+{% endblock %}

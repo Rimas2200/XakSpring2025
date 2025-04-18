@@ -1,0 +1,151 @@
+/* Контейнер для всей страницы */
+.content-wrapper {
+    position: relative; /* Устанавливаем относительное позиционирование */
+    display: flex;
+    justify-content: center; /* Центрируем таблицу */
+    flex-direction: column;
+    height: 100%; /* Высота контейнера на весь экран */
+    background-color: var(--body-bg); /* Используем цвет фона из темы Jazzmin */
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+
+/* Левая панель */
+.sidebar-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 200px; /* Фиксированная ширина */
+    position: absolute; /* Фиксируем панель внутри content-wrapper */
+    top: 100px; /* Располагаем под "Админпанелью" */
+    left: 20px;
+}
+
+/* Основной контент */
+.inner-container {
+    margin-left: 240px; /* Отступ от левой панели */
+    width: 100%; /* Растягиваем таблицу на всю ширину */
+    max-width: 1200px; /* Ограничиваем максимальную ширину */
+    padding: 20px;
+    background-color: var(--card-bg); /* Фон внутреннего блока */
+    border-radius: 10px; /* Скругленные углы */
+    box-sizing: border-box;
+}
+
+/* Верхние кнопки */
+.header-buttons {
+    display: flex;
+    justify-content: flex-start; /* Выравниваем кнопки влево */
+    gap: 10px; /* Расстояние между кнопками */
+    margin-bottom: 20px; /* Отступ снизу */
+    padding: 10px 20px; /* Внутренние отступы */
+    background-color: var(--card-bg); /* Фон кнопок */
+    border-radius: 8px; /* Скругленные углы */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+}
+
+/* Зеленый для WhatsApp */
+.header-buttons .btn-primary {
+    background-color: #28a745; /* Зеленый */
+    border-color: #28a745;
+}
+
+.header-buttons .btn-primary:hover {
+    background-color: #1e7e34; /* Темно-зеленый при наведении */
+    border-color: #1e7e34;
+}
+
+/* Синий для Telegram */
+.header-buttons .btn-success {
+    background-color: #007bff; /* Синий */
+    border-color: #007bff;
+}
+
+.header-buttons .btn-success:hover {
+    background-color: #0056b3; /* Темно-синий при наведении */
+    border-color: #0056b3;
+}
+
+/* Центрирование таблицы с сдвигом вправо */
+.table-container {
+    display: flex;
+    justify-content: flex-start; /* Сдвигаем таблицу влево */
+    margin-top: 20px;
+    padding-left: 20px; /* Добавляем отступ слева */
+}
+
+/* Стили для таблицы */
+.custom-table {
+    width: 100%; /* Таблица занимает всю доступную ширину */
+    border-collapse: collapse;
+    font-size: 16px; /* Размер текста */
+    text-align: center;
+    background-color: var(--card-bg); /* Используем фон из темы Jazzmin */
+    border: 1px solid var(--card-border-color); /* Цвет границы из темы Jazzmin */
+    color: var(--body-color); /* Цвет текста из темы Jazzmin */
+    border-radius: 8px; /* Скругленные углы таблицы */
+    overflow: hidden; /* Убираем лишние элементы за границами */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Добавляем лёгкую тень */
+}
+
+.custom-table th, .custom-table td {
+    border: 1px solid var(--card-border-color); /* Цвет границы */
+    padding: 12px; /* Отступы внутри ячеек */
+}
+
+.custom-table th {
+    background-color: var(--primary); /* Цвет заголовка таблицы */
+    color: var(--primary-contrast); /* Цвет текста заголовка */
+    font-weight: bold;
+}
+
+.custom-table tr:nth-child(even) {
+    background-color: var(--card-bg-alt); /* Чередующийся цвет строк */
+}
+
+.custom-table tr:hover {
+    background-color: var(--card-hover-bg); /* Цвет строки при наведении */
+}
+
+/* Стили для ввода в таблице */
+.table-input {
+    width: 100%; /* Поля ввода занимают всю ширину ячейки */
+    border: 1px solid var(--input-border-color); /* Цвет границы ввода */
+    padding: 10px; /* Увеличиваем отступы внутри полей */
+    font-size: 14px; /* Размер текста */
+    box-sizing: border-box;
+    text-align: center;
+    background-color: var(--input-bg); /* Фон ввода */
+    color: var(--input-color); /* Цвет текста ввода */
+}
+
+.table-input:focus {
+    border-color: var(--primary); /* Цвет границы при фокусе */
+    outline: none;
+    background-color: var(--input-focus-bg); /* Фон при фокусе */
+}
+
+/* Нижние кнопки */
+.footer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+/* Кнопки в боковой панели */
+.sidebar-buttons button {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    cursor: pointer;
+}
+
+.sidebar-buttons button:hover {
+    background-color: #555;
+}

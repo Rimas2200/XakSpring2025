@@ -1,0 +1,51 @@
+<table class="custom-table">
+    <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Подразделение</th>
+            <th>Операция</th>
+            <th>Культура</th>
+            <th>За день, га</th>
+            <th>С начала операции, га</th>
+            <th>Вал за день, ц</th>
+            <th>Вал с начала, ц</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in grouped_records %}
+        
+        <tr>
+            <td>
+                <input type="text" name="entity" value="{{ row.DATE }}" class="table-input">
+                
+            </td>
+            <td>
+                <input type="text" name="text" value="{{ row.DEPARTMENT }}" class="table-input">
+            </td>
+            <td>
+                <input type="text" name="text" value="{{ row.OPERATION }}" class="table-input">
+            </td>
+
+            <td>
+                <input type="text" name="text" value="{{ row.CROP }}" class="table-input">
+            </td>
+            <td>
+                <input type="text" name="text" value="{{ row.HECTARE }}" class="table-input">
+            </td> 
+
+            <td>
+                <input type="text" name="text" value="{{ row.SUBUNIT }}" class="table-input">
+            </td> 
+            
+            <td>
+                <input type="text" name="text" value="{{ row.DAY_YIELD }}" class="table-input">
+            </td>
+            <td>
+                <input type="text" name="text" value="{{ row.YIELD_TOTAL }}" class="table-input">
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
