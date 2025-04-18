@@ -28,6 +28,7 @@
 </p>
 
 ## Обучение
+С каждым новым сообщением датасет для обучения модели будет наполняться, при необходимости модель можно [дообучить](server/xakatonDRF/T5_model/train.py)
 <p align="center">
   <img src="./server/xakatonDRF/T5_model/assets/trainLoss.jpg">
 </p>
@@ -48,13 +49,14 @@ Result: `Внесение минеральных удобрений под Пш�
 Source: `Прикат мн тр под оз пш`<br>
 Result: `Прикатывание посевов Многолетние травы под Пшеница озимая`
 
-# [ner Модель](https://huggingface.co/RimasZzz/agriculture_bert-base-multilingual-cased/blob)
+# [NER Модель](https://huggingface.co/RimasZzz/agriculture_bert-base-multilingual-cased/blob)
 ## Архитектура
 <p align="center">
   <img src="./server/xakatonDRF/ner_model/assets/model_architecturejpg.jpg">
 </p>
 
 ## Обучение
+С каждым новым сообщением датасет для обучения модели будет наполняться, при необходимости модель можно [дообучить](server/xakatonDRF/ner_model/ner_model.py)
 <p align="center">
   <img src="./server/xakatonDRF/ner_model/assets/trainLoss.jpg">
 </p>
