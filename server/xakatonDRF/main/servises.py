@@ -55,7 +55,6 @@ def date_model(date_form: int) -> list:
     for mess in tqdm(message_database):
         group_filter_test = []
         second_lsist = []
-        repit_update = []
         # очистка текста после бд 
         clear_text = clean_text(mess.message)
         # превращение в однострочную структуру 
@@ -113,9 +112,6 @@ def whatsapp_model(chat_name: str) -> list:
     result_parese = whatsapp.process_messages(driver, filter_words)
     driver.quit()
 
-    #pprint(result_parese)
-    # result_first_process = []
-    
     last_process = []
     counter = 0
     
@@ -123,26 +119,13 @@ def whatsapp_model(chat_name: str) -> list:
 
         group_message_ = []
         result_second_process = []
-
         primaryprocessing = test.preprocess_with_t5(message)
-        print("Первичная обработка")
-        pprint(primaryprocessing)
-        print('-----------------------------------------------------------')
         operations = re.split(r"(?=Пахота|Выравнивание|Сев|Культивация|Подкормка|Внесение|Уборка|Предпосевная|Чизлевание|Химпрополка|Первая|Сплошная|2-е|Диск)", primaryprocessing)
-        print("обработка после операций")
-        pprint(operations)
-        print('-----------------------------------------------------------')
+
         filtered_operations = [item for item in operations if item.strip()]
-        print('filter обработка после операций t5')
-        pprint(filtered_operations)
-        print('-----------------------------------------------------------')
-    
         for entits in filtered_operations:
             secondaryprocessing = test.predict_entities(entits) # обработка с помощью neiro
             result_second_process.append(secondaryprocessing)
-        print(' первичная обработка неиро')
-        pprint(result_second_process)
-        print('-----------------------------------------------------------')
          # разделение на блоки 
         for date_items in tqdm(result_second_process):
             entities = test.process_subunit_and_hectare(date_items)
@@ -150,10 +133,7 @@ def whatsapp_model(chat_name: str) -> list:
             entities = test.process_yield_total(entities)
             group = test.group_entities_by_operation(entities)
             group_message_.append(group)
-            
-            print('разделение на блоки')
-            pprint(group)
-            print('-----------------------------------------------------------')
+
         # проверка на пустыесписки 
         for item_filter_2 in tqdm(group_message_):
             if item_filter_2:
@@ -163,8 +143,6 @@ def whatsapp_model(chat_name: str) -> list:
                 else:
                 # Если несколько элементов, используем extend()
                     last_process.extend(item_filter_2)
-
-        
 
         counter += 1
         print(f"Обработано сообщений: {counter}")
