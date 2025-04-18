@@ -1,17 +1,5 @@
 # XakSpring2025
 
-.env 
-
-    #остальные настройки
-    SECRET_KEY="YOUR_SEACKRET_KEY"
-    DEBUG=True # на время разработки true на прод false
-
-    # база данных
-    DATABASE_NAME="YOUR_DATABASE_NAME"
-    DATABASE_USER="YOUR_DATABASE_USER"
-    DATABASE_PASSWORD="YOUR_DATABASE_PASSWORD"
-    DATABASE_HOST=localhost # пока что не трогать для докера не нужно будет это менять 
-    DATABASE_PORT=5432
 # [T5 Модель](https://huggingface.co/RimasZzz/agriculture_text_transform_model)
 ## [Архитектура](model/agriculture_text_transform_model/config.json)
 <p align="center">
@@ -89,3 +77,16 @@ Result:
 - HECTARE: '1774 га'
 ```
 
+Файл с локальными .env 
+```
+  #остальные настройки
+  SECRET_KEY="YOUR_SEACKRET_KEY"
+  DEBUG=True # на время разработки true на прод false
+
+  # база данных
+  DATABASE_NAME="YOUR_DATABASE_NAME"
+  DATABASE_USER="YOUR_DATABASE_USER"
+  DATABASE_PASSWORD="YOUR_DATABASE_PASSWORD"
+  DATABASE_HOST=localhost # пока что не трогать для докера не нужно будет это менять 
+  DATABASE_PORT=5432
+```
