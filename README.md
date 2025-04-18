@@ -44,12 +44,12 @@ Result: `Прикатывание посевов Многолетние трав
 # [ner Модель]()
 ## [Архитектура]()
 <p align="center">
-  <img src="ner_model/assets/model_architecturejpg.jpg">
+  <img src="./server/xakatonDRF/ner_model/assets/model_architecturejpg.jpg">
 </p>
 
 ## [Обучение]()
 <p align="center">
-  <img src="ner_model/assets/trainLoss.jpg">
+  <img src="./server/xakatonDRF/ner_model/assets/trainLoss.jpg">
 </p>
 
 ## [Примеры работы]()

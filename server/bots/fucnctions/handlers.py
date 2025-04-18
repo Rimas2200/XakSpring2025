@@ -6,7 +6,6 @@ from aiogram import F, Router
 
 import os
 from .webapp.api_handler import save_message_post, save_photo_post
-from . import mainbutton as bt
 
 from loader import bot
 
@@ -34,7 +33,7 @@ async def save_messages(message: types.Message):
 
     print(message_obj)
     await save_message_post(message_obj)
-    await message.answer("Сообщение сохранено в БД")
+    
 
 
 @routers.message(F.photo)
