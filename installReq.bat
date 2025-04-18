@@ -9,10 +9,10 @@ python -m venv .venv
 call .venv\Scripts\activate
 
 :: 3. Устанавливаем зависимости из requirements.txt
-if exist req.txt (
-    pip install -r req.txt
+if exist requirements.txt (
+    pip install -r requirements.txt
 ) else (
-    echo file req.txt in not dir.
+    echo file requirements.txt in not dir.
 
 )
 

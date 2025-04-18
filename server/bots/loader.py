@@ -19,6 +19,6 @@ load_dotenv()
         )"""
 
 
-bot = Bot(token=getenv('BOT_TOKEN'))
+bot = Bot(token=getenv('TELEGRAM_BOT_TOKEN'))
 dp = Dispatcher()
 

@@ -14,7 +14,49 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+document.addEventListener("DOMContentLoaded", function () {
+  // Получаем исходные данные из скрытого поля
+  const originalDataField = document.getElementById("original-data");
+  let originalDataArray;
 
+  try {
+      // Парсим данные как JSON
+      originalDataArray = JSON.parse(originalDataField.value);
+  } catch (error) {
+      console.error("Ошибка при парсинге данных:", error);
+      return;
+  }
+
+  // Обработка кнопки "Выгрузить в Excel"
+  const exportToExcelBtn = document.getElementById("exportToExcelBtn");
+  if (!exportToExcelBtn) {
+      console.error("Кнопка 'Выгрузить в Excel' не найдена.");
+      return;
+  }
+
+  exportToExcelBtn.addEventListener("click", function () {
+      // Собираем данные из текстовых полей
+      const records = [];
+      document.querySelectorAll('textarea[name^="record_"]').forEach((textarea, index) => {
+          const originalData = originalDataArray[index].join('\n'); // Исходные данные
+          const editedData = textarea.value; // Редактированные данные
+          records.push([originalData, editedData]);
+      });
+
+      // Создаем таблицу в формате Excel
+      const worksheet = XLSX.utils.aoa_to_sheet([
+          ['Изначальные данные', 'Отредактированные данные'], // Заголовки
+          ...records // Данные
+      ]);
+
+      // Создаем книгу Excel
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Данные');
+
+      // Экспортируем файл
+      XLSX.writeFile(workbook, 'data.xlsx');
+  });
+});
 document.addEventListener("DOMContentLoaded", () => {
   const exportBtn = document.getElementById("exportBtn");
   const exportModal = document.getElementById("exportModal");
@@ -224,40 +266,69 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Функция экспорта в Excel
-  function exportToExcel() {
-    const table = document.querySelector(".custom-table");
-    const rows = Array.from(table.querySelectorAll("tr"));
-
-    // Создаем массив данных
-    const data = [
-      [
-        "Дата",
-        "Подразделение",
-        "Операция",
-        "Культура",
-        "За день, га",
-        "С начала операции, га",
-        "Вал за день, ц",
-        "Вал с начала, ц",
-      ],
-    ];
-    rows.forEach((row) => {
-      const cells = Array.from(row.querySelectorAll("td"));
-      const rowData = cells.map(
-        (cell) => cell.querySelector("input")?.value || ""
-      );
-      if (rowData.some((value) => value)) {
-        // Добавляем только строки с данными
-        data.push(rowData);
-      }
-    });
-
-    // Создаем объект Workbook
-    const workbook = XLSX.utils.book_new();
-    const worksheet = XLSX.utils.aoa_to_sheet(data);
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-
-    // Сохраняем файл
-    XLSX.writeFile(workbook, "data.xlsx");
-  }
+    // Функция экспорта в Excel
+    function exportToExcel() {
+      const table = document.querySelector(".custom-table");
+      const rows = Array.from(table.querySelectorAll("tr"));
+  
+      // Создаем массив данных
+      const data = [
+        [
+          "Дата",
+          "Подразделение",
+          "Операция",
+          "Культура",
+          "За день, га",
+          "С начала операции, га",
+          "Вал за день, ц",
+          "Вал с начала, ц",
+        ],
+      ];
+      
+      const jsonData = [];
+      
+      rows.forEach((row) => {
+        const cells = Array.from(row.querySelectorAll("td"));
+        const rowData = cells.map(
+          (cell) => cell.querySelector("input")?.value || ""
+        );
+        
+        if (rowData.some((value) => value)) {
+          // Добавляем только строки с данными
+          data.push(rowData);
+          
+          // Формируем данные для JSON
+          if (rowData.length >= 6) {
+            const nerTags = [
+              rowData[0] ? "B-DATE": "O",
+              rowData[1] ? "B-DEPARTMENT": "O",
+              rowData[2] ? "B-OPERATION" : "O",
+              rowData[3] ? "B-CROP" : "O",
+              rowData[4] ? "B-HECTARE_DAY": "O" ,
+              rowData[5] ? "B-HECTARE_TOTAL": "O",
+              rowData[6] ? "B-YIELD_DAY" : "O",
+              rowData[7] ? "B-YIELD_TOTAL" : "O"
+            ];
+            
+            jsonData.push({
+              tokens: rowData.map(item => item || ""),
+              ner_tags: nerTags
+            });
+          }
+        }
+      });
+  
+      // Создаем объект Workbook
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.aoa_to_sheet(data);
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  
+      // Сохраняем Excel файл
+      XLSX.writeFile(workbook, "data.xlsx");
+      
+      // Сохраняем JSON файл
+      const jsonBlob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
+      saveAs(jsonBlob, "data.json");
+    }
+  
 });

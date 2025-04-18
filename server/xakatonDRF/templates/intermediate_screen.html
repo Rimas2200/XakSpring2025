@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h1>Предварительный просмотр данных</h1>
+
+    <!-- Скрытое поле для передачи данных из Django в JavaScript -->
+    <input type="hidden" id="original-data" value="{{ grouped_records_json }}">
+
+    <!-- Форма для редактирования данных -->
+    <form method="post" action="{% url 'load_data_to_table' %}">
+        {% csrf_token %}
+        <div class="results-container">
+            <h2>Результаты обработки</h2>
+            <ul>
+                {% for record in grouped_records %}
+                <li>
+                    <textarea rows="3" cols="80" name="record_{{ forloop.counter }}">{{ record|join:"\n" }}</textarea>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Кнопка для продолжения -->
+        <button type="submit" class="btn btn-primary">Продолжить</button>
+    </form>
+
+    <!-- Кнопка для выгрузки в Excel -->
+    <button id="exportToExcelBtn" class="btn btn-success">Выгрузить в Excel</button>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.19.3/xlsx.full.min.js"></script>
+<script src="{% static 'js/script.js' %}"></script>
+{% endblock %}
