@@ -38,6 +38,6 @@ Model 2: "text_classification_model"
 - Modifications: Fine-tuning on proprietary text data for classification tasks (no architectural changes).
 
 Original License for "rut5-base-multitask":
-https://huggingface.co/cointegrated/rut5-base-multitask/blob/main/LICENSE
+https://huggingface.co/cointegrated/rut5-base-multitask
 Original License for "bert-base-multilingual-cased":
-https://huggingface.co/google-bert/bert-base-multilingual-cased/blob/main/LICENSE
+https://huggingface.co/google-bert/bert-base-multilingual-cased
