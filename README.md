@@ -17,12 +17,12 @@
 # [T5 Модель](https://huggingface.co/RimasZzz/agriculture_text_transform_model)
 ## [Архитектура](model/agriculture_text_transform_model/config.json)
 <p align="center">
-  <img src="T5_model/assets/model_architecturejpg.jpg">
+  <img src="./server/xakatonDRF/T5_model/assets/model_architecturejpg.jpg">
 </p>
 
 ## [Обучение](model/train.py)
 <p align="center">
-  <img src="T5_model/assets/trainLoss.jpg">
+  <img src="./server/xakatonDRF/T5_model/assets/trainLoss.jpg">
 </p>
 
 ## [Примеры работы](model/test.py)
