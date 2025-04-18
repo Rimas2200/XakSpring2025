@@ -192,4 +192,6 @@ server/xakatonDRF/ner_model/Таблица (полевые работы).xlsx
 server/xakatonDRF/T5_model/agriculture_text_transform_model/model.safetensors
 server/xakatonDRF/T5_model/agriculture_text_transform_model/spiece.model
 server/xakatonDRF/Таблица (полевые работы).xlsx
-/serer/xakatonDRF/chrome_profile
+
+server/xakatonDRF/chrome_profile
+server/xakatonDRF/chrome_profile/
