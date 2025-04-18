@@ -122,7 +122,6 @@ def whatsapp_model(chat_name: str) -> list:
     for message in result_parese:
 
         group_message_ = []
-        repit_result_first_process = []
         result_second_process = []
 
         primaryprocessing = test.preprocess_with_t5(message)
@@ -139,8 +138,8 @@ def whatsapp_model(chat_name: str) -> list:
         print('-----------------------------------------------------------')
     
         for entits in filtered_operations:
-            secondaryprocessing = test.predict_entities(entits)
-            result_second_process.append(secondaryprocessing.extend())
+            secondaryprocessing = test.predict_entities(entits) # обработка с помощью neiro
+            result_second_process.append(secondaryprocessing)
         print(' первичная обработка неиро')
         pprint(result_second_process)
         print('-----------------------------------------------------------')
