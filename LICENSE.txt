@@ -13,24 +13,31 @@ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
    - "Work" shall mean the work of authorship, whether in Source or Object form, made available under the License, as indicated by a copyright notice that is included in or attached to the work.
 
 2. Redistribution.
-   Redistribution of the derived model ("agriculture_text_transform_model") is permitted provided that:
+   Redistribution of the derived models ("agriculture_text_transform_model" and "text_classification_model") is permitted provided that:
    - The original copyright notice of the base model ("cointegrated/rut5-base-multitask") is retained.
    - A copy of this License is included.
    - Any modifications made to the base model are clearly indicated.
 
 3. Commercial Use.
-   This model may be used for commercial purposes, including integration into proprietary software, provided all redistribution conditions are met.
+   These models may be used for commercial purposes, including integration into proprietary software, provided all redistribution conditions are met.
 
 4. Limitations.
    - This license does NOT grant permission to use the trademarks, service marks, or product names of the Licensor (Cointegrated team), except as required for reasonable and customary use in describing the origin of the work.
-   - The Licensor is not liable for any claims or damages resulting from the use of the model.
+   - The Licensor is not liable for any claims or damages resulting from the use of the models.
 
 ================================================================================
 
 NOTICE:
-This derived model ("agriculture_text_transform_model") is based on the work:
+The derived models are based on the work:
 - "rut5-base-multitask" (Copyright (c) Cointegrated team), licensed under Apache 2.0.
+
+Model 1: "agriculture_text_transform_model"
 - Modifications: Fine-tuning on proprietary agricultural text data (no architectural changes).
+
+Model 2: "text_classification_model"
+- Modifications: Fine-tuning on proprietary text data for classification tasks (no architectural changes).
 
 Original License for "rut5-base-multitask":
 https://huggingface.co/cointegrated/rut5-base-multitask/blob/main/LICENSE
+Original License for "bert-base-multilingual-cased":
+https://huggingface.co/google-bert/bert-base-multilingual-cased/blob/main/LICENSE

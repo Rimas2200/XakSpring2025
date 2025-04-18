@@ -1,5 +1,19 @@
 # XakSpring2025
 
+Файл с локальными .env 
+```
+  #остальные настройки
+  SECRET_KEY="YOUR_SEACKRET_KEY"
+  DEBUG=True # на время разработки true на прод false
+
+  # база данных
+  DATABASE_NAME="YOUR_DATABASE_NAME"
+  DATABASE_USER="YOUR_DATABASE_USER"
+  DATABASE_PASSWORD="YOUR_DATABASE_PASSWORD"
+  DATABASE_HOST=localhost
+  DATABASE_PORT=5432
+```
+
 # [T5 Модель](https://huggingface.co/RimasZzz/agriculture_text_transform_model)
 ## [Архитектура](model/agriculture_text_transform_model/config.json)
 <p align="center">
@@ -77,16 +91,44 @@ Result:
 - HECTARE: '1774 га'
 ```
 
-Файл с локальными .env 
-```
-  #остальные настройки
-  SECRET_KEY="YOUR_SEACKRET_KEY"
-  DEBUG=True # на время разработки true на прод false
+# Модуль статистики
+## Первое приближенеие
+<p align="center">
+  <img src="ner_model/analysis/analysis_1.jpg">
+</p>
 
-  # база данных
-  DATABASE_NAME="YOUR_DATABASE_NAME"
-  DATABASE_USER="YOUR_DATABASE_USER"
-  DATABASE_PASSWORD="YOUR_DATABASE_PASSWORD"
-  DATABASE_HOST=localhost # пока что не трогать для докера не нужно будет это менять 
-  DATABASE_PORT=5432
-```
+## Прогноз завершения операций
+
+Оценка времени завершения сельскохозяйственных операций (посев, уборка, внесение удобрений и т.д.) на основе данных.
+
+<p align="center">
+  <img src="ner_model/analysis/analysis_2.png">
+</p>
+
+Далее, анализ с помощью временных рядов для прогнозирования сроков выполнения работ (на будущее)
+
+## Отстающие подразделения
+
+Выявление пу, которые работают менее эффективно, чем другие.
+
+<p align="center">
+  <img src="ner_model/analysis/analysis_3.png">
+</p>
+
+Сравнительный анализ производительности по различным метрикам
+
+<p align="center">
+  <img src="ner_model/analysis/analysis_4.png">
+</p>
+
+## Сводка данных
+Агрегация данных из различных источников для предоставления общей картины состояния сельского хозяйства(на данный момент только кол-во операций по пу)
+
+## Прогнозирование урожайности (на будущее)
+Оценка будущей урожайности на основе исторических данных, погодных условий, типа почвы и агротехнических мероприятий
+Использование регрессионных моделей для прогнозирования урожайности
+
+## Оптимизация использования ресурсов (на будущее)
+Корреляционный анализ для выявления связей между затратами и результатами
+Анализ временных рядов для определения оптимальных сроков внесения удобрений и полива
+
