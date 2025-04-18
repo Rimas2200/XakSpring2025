@@ -1,4 +1,6 @@
 # XakSpring2025
+# Запуск приложения
+Подробно о том, как запустить приложение можно ознакомиться [здесь](https://docs.google.com/document/d/1oJkp8JR5VXREeSYAtVvYwlhVJV2tEBxsL16Jxt50BH4/edit?usp=sharing)
 
 Файл с локальными .env 
 ```
