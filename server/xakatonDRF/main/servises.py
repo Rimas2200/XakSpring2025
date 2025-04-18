@@ -40,9 +40,59 @@ def clean_text(text):
     text = re.sub(r'\s+', ' ', text).strip()
     return text
 
+def t5_processing_model_tg(date_message : int ) -> list:
+    lasst_processing = []
+    message_database: dict = models.SavesTgMessages.objects.order_by('-id')[:int(date_message)] # randint(1,100)
+    for message in tqdm(message_database):
+        clear_text = clean_text(message.message)
+        filter_single_line = filter.format_to_single_line(clear_text)
 
+        filters_message = filter.split_data_into_single_lines(filter_single_line)
 
+        primaryprocessing = test.preprocess_with_t5(filters_message)
+
+        # отступы по ключам
+        operations = re.split(r"(?=Пахота|Выравнивание|Сев|Культивация|Подкормка|Внесение|Уборка|Предпосевная|Чизлевание|Химпрополка|Первая|Сплошная|2-е|Диск)", primaryprocessing)
+
+        # очистка от пустых строк
+        filtered_operations = [item for item in operations if item.strip()]
+
+        lasst_processing.append(filtered_operations)
+        
     
+    return lasst_processing
+
+def t5_processing_model_whatsapp(chat_name : str) -> list:
+    lasst_processing = []
+
+    driver = whatsapp.setup_driver()
+    driver.get("https://web.whatsapp.com")
+    whatsapp.wait_for_chat_load(driver)
+    whatsapp.open_chat(driver, chat_name)
+    whatsapp.scroll_to_top(driver)
+    filter_words = [
+        "попу", "аор", "тск", "мир", "восход", "ао кропоткинское",
+        "колхоз прогресс", "сп коломейцево", "пу", "отд"
+    ]
+
+    result_parese = whatsapp.process_messages(driver, filter_words)
+    driver.quit()
+
+    for message in result_parese:
+
+        group_message_ = []
+        result_second_process = []
+        primaryprocessing = test.preprocess_with_t5(message)
+        operations = re.split(r"(?=Пахота|Выравнивание|Сев|Культивация|Подкормка|Внесение|Уборка|Предпосевная|Чизлевание|Химпрополка|Первая|Сплошная|2-е|Диск)", primaryprocessing)
+        filtered_operations = [item for item in operations if item.strip()]
+
+        lasst_processing.append(filtered_operations)
+        # очистка от пустых строк
+
+
+    return lasst_processing
+
+
 
 def date_model(date_form: int) -> list:
     
@@ -152,7 +202,41 @@ def whatsapp_model(chat_name: str) -> list:
 
     
 
+def neiro_model(data: list) -> list:
+    last_process = []
+    counter = 0
+    for message in tqdm(data):
+        print(f"Обработка сообщений: {message}")
+        for item in message:
+            print(f"Обработка сообщений: {item}")
+            group_message_ = []
+            result_second_process = []
+            secondprocessing = test.predict_entities(item)
+            result_second_process.append(secondprocessing)
+            # разделение на блоки 
+            for date_items in tqdm(result_second_process):
+                entities = test.process_subunit_and_hectare(date_items)
+                entities = test.process_department(entities)
+                entities = test.process_yield_total(entities)
+                group = test.group_entities_by_operation(entities)
+                group_message_.append(group)
 
+            # проверка на пустыесписки 
+            for item_filter_2 in tqdm(group_message_):
+                if item_filter_2:
+                    if len(item_filter_2) == 1:
+                    # Если в item_filter_2 один элемент, добавляем его
+                        last_process.append(item_filter_2[0])
+                    else:
+                    # Если несколько элементов, используем extend()
+                        last_process.extend(item_filter_2)
+
+            counter += 1
+            print(f"Обработано сообщений: {counter}")
+    
+
+
+    return last_process
 
 
 

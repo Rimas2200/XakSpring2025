@@ -61,7 +61,7 @@ INSTALLED_APPS = [
     'culture',
     'operation',
     'custom_admin',
-    'llmmodelsapp',
+    # 'llmmodelsapp',
     'departaments',
     'connectionsbottg',
     

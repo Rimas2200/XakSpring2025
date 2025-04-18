@@ -45,7 +45,7 @@ pandas==2.2.3
 pillow==11.1.0
 prompt_toolkit==3.0.51
 propcache==0.3.1
-psycopg2==2.9.10
+psycopg2-binary==2.9.10
 pycparser==2.22
 pydantic==2.10.6
 pydantic_core==2.27.2
@@ -83,3 +83,5 @@ webdriver-manager==4.0.2
 websocket-client==1.8.0
 wsproto==1.2.0
 yarl==1.19.0
+protobuf==6.30.2
+docx-python==0.1.0
