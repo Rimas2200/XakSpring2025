@@ -12,6 +12,13 @@
   DATABASE_PASSWORD="YOUR_DATABASE_PASSWORD"
   DATABASE_HOST=localhost
   DATABASE_PORT=5432
+
+  BOT_TOKEN="YOUR_BOT_TOKEN"
+
+  API_URL_SAVE_MESSAGES=”YOUR_URL_SAVE_MESSAGE_TG”
+  API_URL_SAVE_PHOTO=”YOUR_URL_SAVE_PHOTO_TG”
+
+
 ```
 
 # [T5 Модель](https://huggingface.co/RimasZzz/agriculture_text_transform_model)
